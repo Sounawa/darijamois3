@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apprentissage Darija - Mois 3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    [x-cloak] { display: none !important; }
+    .arabic-text {
+      font-family: 'Amiri', 'Noto Naskh Arabic', 'Segoe UI', Tahoma, sans-serif;
+      direction: rtl;
+      line-height: 1.6;
+    }
+    .tab-active { background-color: #166534; color: white; }
+    .theme-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+    .word-card:hover { background-color: #f0fdf4; }
+    .progress-bar { transition: width 0.5s ease-in-out; }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.8; }
+    .tab-content { transition: opacity 0.3s ease; }
+    .tab-content.hidden { opacity: 0; pointer-events: none; }
+    .tab-content:not(.hidden) { opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 to-purple-100 min-h-screen">
+  <div id="app">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 py-4">
+        <h1 class="text-2xl md:text-3xl font-bold text-center">🌈 Apprentissage Darija - Mois 3</h1>
+        <p class="text-center text-indigo-100 mt-1 text-sm md:text-base">Transport • Nature • Couleurs • Sentiments</p>
+      </div>
+    </header>
+
+    <!-- Progress -->
+    <div class="max-w-6xl mx-auto px-4 py-3">
+      <div class="bg-white rounded-xl p-4 shadow-md">
+        <div class="flex justify-between text-sm text-gray-600 mb-2">
+          <span>📊 Progression</span>
+          <span id="progress-text">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+          <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-3 rounded-full progress-bar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-wrap gap-2 justify-center mb-4 sticky top-20 z-40 bg-indigo-50/90 backdrop-blur-sm py-2 rounded-xl">
+        <button onclick="showTab('accueil')" id="tab-accueil" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all tab-active">🏠 Accueil</button>
+        <button onclick="showTab('lecons')" id="tab-lecons" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">📖 Leçons</button>
+        <button onclick="showTab('dialogues')" id="tab-dialogues" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">💬 Dialogues</button>
+        <button onclick="showTab('verbes')" id="tab-verbes" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">🔤 Verbes</button>
+        <button onclick="showTab('nombres')" id="tab-nombres" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">🔢 Nombres</button>
+        <button onclick="showTab('revision')" id="tab-revision" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">🎯 Révision</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 pb-8">
+      
+      <!-- Accueil Tab -->
+      <div id="content-accueil" class="tab-content">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('lecons')" role="button" tabindex="0">
+            <div class="text-4xl md:text-5xl mb-3">🚌</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-800">Transport & Ville</h3>
+            <p class="text-gray-500 mt-2 text-sm">20 mots</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('lecons')" role="button" tabindex="0">
+            <div class="text-4xl md:text-5xl mb-3">🌳</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-800">Nature & Météo</h3>
+            <p class="text-gray-500 mt-2 text-sm">20 mots</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('lecons')" role="button" tabindex="0">
+            <div class="text-4xl md:text-5xl mb-3">🎨</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-800">Couleurs & Formes</h3>
+            <p class="text-gray-500 mt-2 text-sm">20 mots</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('lecons')" role="button" tabindex="0">
+            <div class="text-4xl md:text-5xl mb-3">😊</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-800">Sentiments</h3>
+            <p class="text-gray-500 mt-2 text-sm">20 mots</p>
+          </div>
+          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('revision')" role="button" tabindex="0">
+            <div class="text-4xl md:text-5xl mb-3">🎯</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-800">Révision</h3>
+            <p class="text-gray-500 mt-2 text-sm">Quiz interactif</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leçons Tab -->
+      <div id="content-lecons" class="tab-content hidden">
+        <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+          <!-- Thème Transport -->
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-500 to-blue-500 p-4">
+              <h3 class="text-xl font-bold text-white">🚌 Transport & Ville</h3>
+            </div>
+            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+              <div class="space-y-3" id="theme-transport"></div>
+            </div>
+          </div>
+          <!-- Thème Nature -->
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4">
+              <h3 class="text-xl font-bold text-white">🌳 Nature & Météo</h3>
+            </div>
+            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+              <div class="space-y-3" id="theme-nature"></div>
+            </div>
+          </div>
+          <!-- Thème Couleurs -->
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-pink-500 to-rose-500 p-4">
+              <h3 class="text-xl font-bold text-white">🎨 Couleurs & Formes</h3>
+            </div>
+            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+              <div class="space-y-3" id="theme-couleurs"></div>
+            </div>
+          </div>
+          <!-- Thème Sentiments -->
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4">
+              <h3 class="text-xl font-bold text-white">😊 Sentiments</h3>
+            </div>
+            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+              <div class="space-y-3" id="theme-sentiments"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialogues Tab -->
+      <div id="content-dialogues" class="tab-content hidden">
+        <div class="space-y-4 md:space-y-6" id="dialogues-container"></div>
+      </div>
+
+      <!-- Verbes Tab -->
+      <div id="content-verbes" class="tab-content hidden">
+        <div class="space-y-4" id="verbes-container"></div>
+      </div>
+
+      <!-- Nombres Tab -->
+      <div id="content-nombres" class="tab-content hidden">
+        <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4" id="nombres-container"></div>
+        </div>
+      </div>
+
+      <!-- Révision Tab -->
+      <div id="content-revision" class="tab-content hidden">
+        <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+          <div id="quiz-container">
+            <div class="text-center mb-4 md:mb-6">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-800">🎯 Quiz de Révision</h3>
+              <p class="text-gray-500 text-sm md:text-base">Testez vos connaissances !</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3 mb-4 md:mb-6">
+              <button onclick="startQuiz('vocabulaire')" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all">📚 Vocabulaire</button>
+              <button onclick="startQuiz('verbes')" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-blue-600 transition-all">🔤 Verbes</button>
+              <button onclick="startQuiz('nombres')" class="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-purple-600 transition-all">🔢 Nombres</button>
+            </div>
+            <div id="quiz-area" class="hidden">
+              <div class="text-center mb-4">
+                <span class="text-gray-500 text-sm">Question <span id="quiz-current">1</span> / <span id="quiz-total">10</span></span>
+              </div>
+              <div id="quiz-question" class="text-lg md:text-2xl text-center font-bold text-gray-800 mb-4 md:mb-6"></div>
+              <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+              <div id="quiz-result" class="text-center mt-4 text-lg md:text-xl font-bold hidden"></div>
+              <div class="text-center mt-4 md:mt-6">
+                <button onclick="nextQuestion()" id="next-btn" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all hidden">Suivant →</button>
+              </div>
+            </div>
+            <div id="quiz-end" class="hidden text-center">
+              <div class="text-4xl md:text-5xl mb-4">🎉</div>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-800">Quiz terminé !</h3>
+              <p class="text-gray-500 mt-2">Score : <span id="quiz-score">0</span> / <span id="quiz-total-end">10</span></p>
+              <button onclick="resetQuiz()" class="mt-4 px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all">Rejouer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+      <p class="text-sm">📚 Apprentissage Darija - Mois 3 | Créé pour les enfants</p>
+    </footer>
+  </div>
+
+  <script>
+    // ==================== DONNÉES - MOIS 3 ====================
+    const vocabulaire = {
+      transport: [
+        { fr: "voiture", arabe: "طُومُوبِيل", latin: "tomobil", phrase_latin: "Tomobili zraqa", phrase_fr: "La voiture est bleue" },
+        { fr: "bus", arabe: "كَار", latin: "kar", phrase_latin: "Kar jay", phrase_fr: "Le bus arrive" },
+        { fr: "train", arabe: "طْرَان", latin: "tran", phrase_latin: "Tran kaymchi bsur3a", phrase_fr: "Le train va vite" },
+        { fr: "avion", arabe: "طَيَّارَة", latin: "tayara", phrase_latin: "Tayara f s-sama", phrase_fr: "L'avion dans le ciel" },
+        { fr: "vélo", arabe: "بِيسْكْليت", latin: "bisklit", phrase_latin: "Bisklit diali", phrase_fr: "Mon vélo" },
+        { fr: "moto", arabe: "مُوتُور", latin: "moteur", phrase_latin: "Moteur kaydwi bzaf", phrase_fr: "La moto fait du bruit" },
+        { fr: "taxi", arabe: "طَاكْسِي", latin: "taksi", phrase_latin: "Taksi sfer", phrase_fr: "Un taxi jaune" },
+        { fr: "bateau", arabe: "بَاطُور", latin: "bateur", phrase_latin: "Bateur f l-b7r", phrase_fr: "Le bateau sur la mer" },
+        { fr: "route", arabe: "طْرِيق", latin: "triq", phrase_latin: "Triq twila", phrase_fr: "Une longue route" },
+        { fr: "rue", arabe: "زْنْقَة", latin: "zenqa", phrase_latin: "Zenqa darna", phrase_fr: "La rue près de chez nous" },
+        { fr: "pont", arabe: "قَنْطَرَة", latin: "qantra", phrase_latin: "Qantra f wad", phrase_fr: "Un pont sur la rivière" },
+        { fr: "tunnel", arabe: "نِفَاق", latin: "nifaq", phrase_latin: "Nifaq t7t l-ard", phrase_fr: "Un tunnel sous la terre" },
+        { fr: "station", arabe: "مَحَطَّة", latin: "ma7atta", phrase_latin: "Ma7atta d l-kar", phrase_fr: "La station de bus" },
+        { fr: "aéroport", arabe: "مَطَار", latin: "matar", phrase_latin: "Matar kbir", phrase_fr: "Un grand aéroport" },
+        { fr: "port", arabe: "مِينَا", latin: "mina", phrase_latin: "Mina f dar l-bida", phrase_fr: "Le port à Casablanca" },
+        { fr: "conducteur", arabe: "سَّوَّاق", latin: "sawaq", phrase_latin: "Sawaq mzyan", phrase_fr: "Un bon conducteur" },
+        { fr: "passager", arabe: "مُسَافِر", latin: "musafir", phrase_latin: "Musafir f l-kar", phrase_fr: "Un passager dans le bus" },
+        { fr: "billett", arabe: "تِذْكِرَة", latin: "tadhkera", phrase_latin: "Tadhkera d tran", phrase_fr: "Un billet de train" },
+        { fr: "bagage", arabe: "حْقِيبَة", latin: "7qiba", phrase_latin: "7qiba kbira", phrase_fr: "Une grande valise" },
+        { fr: "voyage", arabe: "سْفَرْ", latin: "sfer", phrase_latin: "Sfer mzyan", phrase_fr: "Un bon voyage" }
+      ],
+      nature: [
+        { fr: "soleil", arabe: "شَّمْس", latin: "shems", phrase_latin: "Shems katdhwi", phrase_fr: "Le soleil brille" },
+        { fr: "lune", arabe: "قْمَرْ", latin: "qmar", phrase_latin: "Qmar 7lu l-lila", phrase_fr: "La belle lune ce soir" },
+        { fr: "étoile", arabe: "نَجْمَة", latin: "najma", phrase_latin: "Najma f s-sama", phrase_fr: "Une étoile dans le ciel" },
+        { fr: "ciel", arabe: "سْمَا", latin: "sma", phrase_latin: "Sma zraqa", phrase_fr: "Le ciel est bleu" },
+        { fr: "nuage", arabe: "سْحَابَة", latin: "s7aba", phrase_latin: "S7aba bayda", phrase_fr: "Un nuage blanc" },
+        { fr: "pluie", arabe: "شْتَا", latin: "shta", phrase_latin: "Shta katnzel", phrase_fr: "La pluie tombe" },
+        { fr: "vent", arabe: "رِيح", latin: "ri7", phrase_latin: "Ri7 qwiya", phrase_fr: "Un vent fort" },
+        { fr: "arbre", arabe: "شْجَرَة", latin: "shjra", phrase_latin: "Shjra kbira", phrase_fr: "Un grand arbre" },
+        { fr: "fleur", arabe: "وَرْدَة", latin: "warda", phrase_latin: "Warda 7mra", phrase_fr: "Une fleur rouge" },
+        { fr: "herbe", arabe: "عُشْب", latin: "3ochb", phrase_latin: "3ochb akhdar", phrase_fr: "De l'herbe verte" },
+        { fr: "montagne", arabe: "جْبَل", latin: "jbel", phrase_latin: "Jbel 3ali", phrase_fr: "Une haute montagne" },
+        { fr: "mer", arabe: "بَحْر", latin: "b7r", phrase_latin: "B7r zreq", phrase_fr: "La mer bleue" },
+        { fr: "rivière", arabe: "وَاد", latin: "wad", phrase_latin: "Wad kayjri", phrase_fr: "La rivière coule" },
+        { fr: "sable", arabe: "رَمْل", latin: "rml", phrase_latin: "Rml d s7ara", phrase_fr: "Le sable du désert" },
+        { fr: "forêt", arabe: "غَابَة", latin: "ghaba", phrase_latin: "Ghaba kbira", phrase_fr: "Une grande forêt" },
+        { fr: "jardin", arabe: "جْنَان", latin: "jnan", phrase_latin: "Jnan dialna", phrase_fr: "Notre jardin" },
+        { fr: "parc", arabe: "جْدِيقَة", latin: "jdiqa", phrase_latin: "Jdiqa 3amra nass", phrase_fr: "Le parc est plein de monde" },
+        { fr: "chaud", arabe: "سْخُون", latin: "skhun", phrase_latin: "Jaw skhun l-yom", phrase_fr: "Il fait chaud aujourd'hui" },
+        { fr: "froid", arabe: "بَارِد", latin: "bard", phrase_latin: "Jaw bard f chita", phrase_fr: "Il fait froid en hiver" },
+        { fr: "beau temps", arabe: "جْو مْزَيَان", latin: "jaw mzyan", phrase_latin: "Jaw mzyan l-yom", phrase_fr: "Il fait beau aujourd'hui" }
+      ],
+      couleurs: [
+        { fr: "rouge", arabe: "أَحْمَر", latin: "a7mar", phrase_latin: "Warda 7mra", phrase_fr: "Une rose rouge" },
+        { fr: "bleu", arabe: "أَزْرَق", latin: "azraq", phrase_latin: "Sma zraqa", phrase_fr: "Le ciel bleu" },
+        { fr: "vert", arabe: "أَخْضَر", latin: "akhdar", phrase_latin: "3ochb akhdar", phrase_fr: "L'herbe verte" },
+        { fr: "jaune", arabe: "أَصْفَر", latin: "asfar", phrase_latin: "Shems safra", phrase_fr: "Le soleil jaune" },
+        { fr: "blanc", arabe: "أَبْيَض", latin: "abyad", phrase_latin: "Thelj abyad", phrase_fr: "La neige blanche" },
+        { fr: "noir", arabe: "أَسْوَد", latin: "aswad", phrase_latin: "Lil aswad", phrase_fr: "La nuit noire" },
+        { fr: "rose", arabe: "وَرْدِي", latin: "wardi", phrase_latin: "Foustan wardi", phrase_fr: "Une robe rose" },
+        { fr: "orange", arabe: "بُرْتُقَالِي", latin: "bortuqali", phrase_latin: "Limun bortuqali", phrase_fr: "Un citron orange" },
+        { fr: "violet", arabe: "بَنْفُسْجِي", latin: "banfusji", phrase_latin: "Warda banfusjiya", phrase_fr: "Une fleur violette" },
+        { fr: "gris", arabe: "رَمَادِي", latin: "ramadi", phrase_latin: "S7aba ramadiya", phrase_fr: "Un nuage gris" },
+        { fr: "marron", arabe: "بُنِّي", latin: "bunni", phrase_latin: "Kursi bunni", phrase_fr: "Une chaise marron" },
+        { fr: "doré", arabe: "ذَهَبِي", latin: "dhahabi", phrase_latin: "Shems dhahabiya", phrase_fr: "Un soleil doré" },
+        { fr: "argenté", arabe: "فِضِّي", latin: "fiddi", phrase_latin: "Qmar fiddi", phrase_fr: "Une lune argentée" },
+        { fr: "cercle", arabe: "دَائِرَة", latin: "da'ira", phrase_latin: "Da'ira kbira", phrase_fr: "Un grand cercle" },
+        { fr: "carré", arabe: "مُرَبَّع", latin: "murabba3", phrase_latin: "Murabba3 sghir", phrase_fr: "Un petit carré" },
+        { fr: "triangle", arabe: "مُثَلَّث", latin: "muthallath", phrase_latin: "Muthallath akhdar", phrase_fr: "Un triangle vert" },
+        { fr: "étoile (forme)", arabe: "نَجْمَة", latin: "najma", phrase_latin: "Najma safra", phrase_fr: "Une étoile jaune" },
+        { fr: "grand", arabe: "كْبِير", latin: "kbir", phrase_latin: "Kbir bzzaf", phrase_fr: "Très grand" },
+        { fr: "petit", arabe: "صْغِير", latin: "sghir", phrase_latin: "Sghir w 7lu", phrase_fr: "Petit et mignon" },
+        { fr: "long", arabe: "طْوِيل", latin: "twil", phrase_latin: "Triq twila", phrase_fr: "Une longue route" }
+      ],
+      sentiments: [
+        { fr: "heureux", arabe: "فَرْحَان", latin: "fer7an", phrase_latin: "Ana fer7an l-yom", phrase_fr: "Je suis heureux aujourd'hui" },
+        { fr: "triste", arabe: "حَزِين", latin: "7zin", phrase_latin: "Walid 7zin", phrase_fr: "L'enfant est triste" },
+        { fr: "en colère", arabe: "مْعَصَّب", latin: "m3asseb", phrase_latin: "Ana m3asseb", phrase_fr: "Je suis en colère" },
+        { fr: "fatigué", arabe: "تْعِبَان", latin: "t3iban", phrase_latin: "T3iban men l-madrasa", phrase_fr: "Fatigué de l'école" },
+        { fr: "content", arabe: "مْزَيَان", latin: "mzyan", phrase_latin: "Ana mzyan", phrase_fr: "Je vais bien" },
+        { fr: "surpris", arabe: "مِتْفَاجِئ", latin: "mitfajj'e", phrase_latin: "Mitfajj'e bzaf", phrase_fr: "Très surpris" },
+        { fr: "effrayé", arabe: "خَايِف", latin: "khayef", phrase_latin: "Khayef men l-3tma", phrase_fr: "Peur du noir" },
+        { fr: "calme", arabe: "هَادِي", latin: "hadi", phrase_latin: "Walid hadi", phrase_fr: "L'enfant est calme" },
+        { fr: "excité", arabe: "مُتَحَمِّس", latin: "muta7ammis", phrase_latin: "Muta7ammis l-l3eb", phrase_fr: "Excité de jouer" },
+        { fr: "curieux", arabe: "فُضُولِي", latin: "fuduli", phrase_latin: "Walid fuduli", phrase_fr: "L'enfant est curieux" },
+        { fr: "gentil", arabe: "طَيِّب", latin: "tayeb", phrase_latin: "Walid tayeb", phrase_fr: "Un enfant gentil" },
+        { fr: "méchant", arabe: "خْبِيث", latin: "khbith", phrase_latin: "Ma tkunsh khbith", phrase_fr: "Ne sois pas méchant" },
+        { fr: "timide", arabe: "خْجُول", latin: "khjul", phrase_latin: "Bint khjula", phrase_fr: "Une fille timide" },
+        { fr: "courageux", arabe: "شُجَاع", latin: "shuja3", phrase_latin: "Walid shuja3", phrase_fr: "Un garçon courageux" },
+        { fr: "patient", arabe: "صَابِر", latin: "saber", phrase_latin: "Kun saber", phrase_fr: "Sois patient" },
+        { fr: "joyeux", arabe: "مُبْتَسِم", latin: "mubtasim", phrase_latin: "Mubtasim dima", phrase_fr: "Toujours souriant" },
+        { fr: "amoureux", arabe: "عَاشِق", latin: "3ashiq", phrase_latin: "3ashiq l-walidin", phrase_fr: "Amoureux de ses parents" },
+        { fr: "fier", arabe: "فَخُور", latin: "fakhur", phrase_latin: "Fakhur bik", phrase_fr: "Fier de toi" },
+        { fr: "reconnaissant", arabe: "شَاكِر", latin: "shakir", phrase_latin: "Shakir 3lik", phrase_fr: "Reconnaissant envers toi" },
+        { fr: "serein", arabe: "مُطْمَئِن", latin: "mutma'in", phrase_latin: "Qalbi mutma'in", phrase_fr: "Mon cœur est serein" }
+      ]
+    };
+
+    const dialogues = [
+      {
+        titre: "Dans le bus",
+        personnages: ["Enfant", "Conducteur"],
+        repliques: [
+          { role: "Enfant", latin: "Salam, had l-kar kaymchi l-madrasa?", francais: "Bonjour, ce bus va à l'école?", arabe: "سَلَام، هَاد لْكَار كَيْمْشِي لْمَدْرَسَة؟" },
+          { role: "Conducteur", latin: "Ih, tla3 3afak.", francais: "Oui, monte s'il te plaît.", arabe: "إيْه، تْلَاعْ عَافَاك" },
+          { role: "Enfant", latin: "Shukran!", francais: "Merci!", arabe: "شُكْرَان!" }
+        ]
+      },
+      {
+        titre: "La météo",
+        personnages: ["Maman", "Enfant"],
+        repliques: [
+          { role: "Maman", latin: "Shuf s-sama, s7aba katji.", francais: "Regarde le ciel, des nuages arrivent.", arabe: "شُوفْ سْمَا، سْحَابَة كَاتْجِي" },
+          { role: "Enfant", latin: "Wach ghadi tji shta?", francais: "Est-ce qu'il va pleuvoir?", arabe: "وَاشْ غَادِي تْجِي شْتَا؟" },
+          { role: "Maman", latin: "Ih, jib l-mantel.", francais: "Oui, apporte le manteau.", arabe: "إيْه، جِيب لْمَانْتُو" }
+        ]
+      },
+      {
+        titre: "Les couleurs",
+        personnages: ["Maîtresse", "Élève"],
+        repliques: [
+          { role: "Maîtresse", latin: "Shno l-lawn dial had l-warda?", francais: "Quelle est la couleur de cette fleur?", arabe: "شْنُو لْلَوْنْ دِيالْ هَاد لْوَرْدَة؟" },
+          { role: "Élève", latin: "Hiya 7mra, m3allima!", francais: "Elle est rouge, maîtresse!", arabe: "هِيَا حْمَرَة، مْعَلِّمَة!" },
+          { role: "Maîtresse", latin: "Bravo! Ahsant!", francais: "Bravo! Très bien!", arabe: "بْرَافُو! أَحْسَنْت!" }
+        ]
+      },
+      {
+        titre: "Comment tu te sens?",
+        personnages: ["Papa", "Enfant"],
+        repliques: [
+          { role: "Papa", latin: "Kidayr l-yom, walidi?", francais: "Comment vas-tu aujourd'hui, mon fils?", arabe: "كَيْدِيرْ لْيُومْ، وَلَدِي؟" },
+          { role: "Enfant", latin: "Ana fer7an, baba!", francais: "Je suis heureux, papa!", arabe: "أَنَا فَرْحَانْ، بَابَا!" },
+          { role: "Papa", latin: "Allah ykhellik liya.", francais: "Que Dieu te garde pour moi.", arabe: "اللهْ يْخَلِّيكْ لِيَّا" }
+        ]
+      },
+      {
+        titre: "Au parc",
+        personnages: ["Enfant1", "Enfant2"],
+        repliques: [
+          { role: "Enfant1", latin: "Nl3abo f jdiqa?", francais: "On joue au parc?", arabe: "نْلْعَبُو فْجْدِيقَة؟" },
+          { role: "Enfant2", latin: "Ih, shuf had shjra kbira!", francais: "Oui, regarde ce grand arbre!", arabe: "إيْه، شُوفْ هَاد شْجَرَة كْبِيرَة!" },
+          { role: "Enfant1", latin: "Yallah, njriw!", francais: "Allez, on court!", arabe: "يَلَّاهْ، نْجْرِيو!" }
+        ]
+      }
+    ];
+
+    const verbes = [
+      {
+        verbe: "voyager", racine: "sfer",
+        present: { ana: "kansfer", nta: "katsfer", houwa: "kaysfer", hna: "kansferu", ntuma: "katsferu", houma: "kaysferu" },
+        passe: { ana: "sfert", nta: "sferti", houwa: "sfer", hna: "sferna", ntuma: "sfertu", houma: "sferu" },
+        futur: { ana: "ghadi nsfer", nta: "ghadi tsfer", houwa: "ghadi ysfer", hna: "ghadi nsferu", ntuma: "ghadi tsferu", houma: "ghadi ysferu" }
+      },
+      {
+        verbe: "conduire", racine: "saq",
+        present: { ana: "kansa9", nta: "katsa9", houwa: "kaysa9", hna: "kansa9u", ntuma: "katsa9u", houma: "kaysa9u" },
+        passe: { ana: "sa9t", nta: "sa9ti", houwa: "sa9", hna: "sa9na", ntuma: "sa9tu", houma: "sa9u" },
+        futur: { ana: "ghadi nsa9", nta: "ghadi tsa9", houwa: "ghadi ysa9", hna: "ghadi nsa9u", ntuma: "ghadi tsa9u", houma: "ghadi ysa9u" }
+      },
+      {
+        verbe: "marcher", racine: "msha",
+        present: { ana: "kanmshi", nta: "katmshi", houwa: "kaymshi", hna: "kanmshiw", ntuma: "katmshiw", houma: "kaymshiw" },
+        passe: { ana: "mshit", nta: "mshiti", houwa: "msha", hna: "mshina", ntuma: "mshitu", houma: "mshaw" },
+        futur: { ana: "ghadi nmshi", nta: "ghadi tmshi", houwa: "ghadi ymshi", hna: "ghadi nmshiw", ntuma: "ghadi tmshiw", houma: "ghadi ymshiw" }
+      },
+      {
+        verbe: "courir", racine: "jra",
+        present: { ana: "kanjri", nta: "kadjri", houwa: "kayjri", hna: "kanjriw", ntuma: "kadjriw", houma: "kayjriw" },
+        passe: { ana: "jrit", nta: "jriti", houwa: "jra", hna: "jrina", ntuma: "jritu", houma: "jraw" },
+        futur: { ana: "ghadi njri", nta: "ghadi tjri", houwa: "ghadi yjri", hna: "ghadi njriw", ntuma: "ghadi tjriw", houma: "ghadi yjriw" }
+      },
+      {
+        verbe: "voler", racine: "tar",
+        present: { ana: "kantar", nta: "kattar", houwa: "kaytar", hna: "kantaru", ntuma: "kattaru", houma: "kaytaru" },
+        passe: { ana: "tart", nta: "tarti", houwa: "tar", hna: "tarna", ntuma: "tartu", houma: "taru" },
+        futur: { ana: "ghadi ntar", nta: "ghadi ttar", houwa: "ghadi ytar", hna: "ghadi ntaru", ntuma: "ghadi ttaru", houma: "ghadi ytaru" }
+      },
+      {
+        verbe: "nager", racine: "3am",
+        present: { ana: "kana3um", nta: "kata3um", houwa: "kaya3um", hna: "kana3umu", ntuma: "kata3umu", houma: "kaya3umu" },
+        passe: { ana: "3omt", nta: "3omti", houwa: "3am", hna: "3omna", ntuma: "3omtu", houma: "3amu" },
+        futur: { ana: "ghadi na3um", nta: "ghadi ta3um", houwa: "ghadi ya3um", hna: "ghadi na3umu", ntuma: "ghadi ta3umu", houma: "ghadi ya3umu" }
+      },
+      {
+        verbe: "pleuvoir", racine: "shta",
+        present: { ana: "katshta", nta: "katshta", houwa: "kayshta", hna: "katshtaw", ntuma: "katshtaw", houma: "kayshtaw" },
+        passe: { ana: "shtat", nta: "shtati", houwa: "shta", hna: "shtana", ntuma: "shtatu", houma: "shtaw" },
+        futur: { ana: "ghadi tshta", nta: "ghadi tshta", houwa: "ghadi yshta", hna: "ghadi tshtaw", ntuma: "ghadi tshtaw", houma: "ghadi yshtaw" }
+      },
+      {
+        verbe: "briller", racine: "dha",
+        present: { ana: "kandhi", nta: "katdhi", houwa: "kaydhi", hna: "kandhiw", ntuma: "katdhiw", houma: "kaydhiw" },
+        passe: { ana: "dhayt", nta: "dhayti", houwa: "dha", hna: "dhayna", ntuma: "dhaytu", houma: "dhaw" },
+        futur: { ana: "ghadi ndhi", nta: "ghadi tdhi", houwa: "ghadi ydhi", hna: "ghadi ndhiw", ntuma: "ghadi tdhiw", houma: "ghadi ydhiw" }
+      },
+      {
+        verbe: "ressentir", racine: "7ess",
+        present: { ana: "kana7ess", nta: "kata7ess", houwa: "kaya7ess", hna: "kana7essu", ntuma: "kata7essu", houma: "kaya7essu" },
+        passe: { ana: "7essit", nta: "7essiti", houwa: "7ess", hna: "7essina", ntuma: "7essitu", houma: "7essu" },
+        futur: { ana: "ghadi na7ess", nta: "ghadi ta7ess", houwa: "ghadi ya7ess", hna: "ghadi na7essu", ntuma: "ghadi ta7essu", houma: "ghadi ya7essu" }
+      },
+      {
+        verbe: "sourire", racine: "bsem",
+        present: { ana: "kanbessem", nta: "katbessem", houwa: "kaybessem", hna: "kanbessemu", ntuma: "katbessemu", houma: "kaybessemu" },
+        passe: { ana: "bessemt", nta: "bessemti", houwa: "bessem", hna: "bessemna", ntuma: "bessemtu", houma: "bessemu" },
+        futur: { ana: "ghadi nbessem", nta: "ghadi tbessem", houwa: "ghadi ybessem", hna: "ghadi nbessemu", ntuma: "ghadi tbessemu", houma: "ghadi ybessemu" }
+      },
+      {
+        verbe: "pleurer", racine: "bka",
+        present: { ana: "kanbki", nta: "katbki", houwa: "kaybki", hna: "kanbkiw", ntuma: "katbkiw", houma: "kaybkiw" },
+        passe: { ana: "bkit", nta: "bkiti", houwa: "bka", hna: "bkina", ntuma: "bkitu", houma: "bkaw" },
+        futur: { ana: "ghadi nbki", nta: "ghadi tbki", houwa: "ghadi ybki", hna: "ghadi nbkiw", ntuma: "ghadi tbkiw", houma: "ghadi ybkiw" }
+      },
+      {
+        verbe: "rire", racine: "d7ek",
+        present: { ana: "kand7ek", nta: "katd7ek", houwa: "kayd7ek", hna: "kand7ku", ntuma: "katd7ku", houma: "kayd7ku" },
+        passe: { ana: "d7ekt", nta: "d7ekti", houwa: "d7ek", hna: "d7ekna", ntuma: "d7ektu", houma: "d7ku" },
+        futur: { ana: "ghadi nd7ek", nta: "ghadi td7ek", houwa: "ghadi yd7ek", hna: "ghadi nd7ku", ntuma: "ghadi td7ku", houma: "ghadi yd7ku" }
+      },
+      {
+        verbe: "attendre", racine: "tsenna",
+        present: { ana: "kanatsenna", nta: "katatsenna", houwa: "kayatsenna", hna: "kanatsennaw", ntuma: "katatsennaw", houma: "kayatsennaw" },
+        passe: { ana: "tsennit", nta: "tsenniti", houwa: "tsenna", hna: "tsennina", ntuma: "tsennitu", houma: "tsennaw" },
+        futur: { ana: "ghadi natsenna", nta: "ghadi tatsenna", houwa: "ghadi yatsenna", hna: "ghadi natsennaw", ntuma: "ghadi tatsennaw", houma: "ghadi yatsennaw" }
+      },
+      {
+        verbe: "arriver", racine: "wsel",
+        present: { ana: "kanawsel", nta: "katawsel", houwa: "kayawsel", hna: "kanawselu", ntuma: "katawselu", houma: "kayawselu" },
+        passe: { ana: "wselt", nta: "wselti", houwa: "wsel", hna: "wselna", ntuma: "wseltu", houma: "wselu" },
+        futur: { ana: "ghadi nawsel", nta: "ghadi tawsel", houwa: "ghadi yawsel", hna: "ghadi nawselu", ntuma: "ghadi tawselu", houma: "ghadi yawselu" }
+      },
+      {
+        verbe: "partir", racine: "msha",
+        present: { ana: "kanmshi", nta: "katmshi", houwa: "kaymshi", hna: "kanmshiw", ntuma: "katmshiw", houma: "kaymshiw" },
+        passe: { ana: "mshit", nta: "mshiti", houwa: "msha", hna: "mshina", ntuma: "mshitu", houma: "mshaw" },
+        futur: { ana: "ghadi nmshi", nta: "ghadi tmshi", houwa: "ghadi ymshi", hna: "ghadi nmshiw", ntuma: "ghadi tmshiw", houma: "ghadi ymshiw" }
+      },
+      {
+        verbe: "regarder", racine: "shuf",
+        present: { ana: "kanshuf", nta: "katshuf", houwa: "kayshuf", hna: "kanshufu", ntuma: "katshufu", houma: "kayshufu" },
+        passe: { ana: "shuft", nta: "shufti", houwa: "shuf", hna: "shufna", ntuma: "shuftu", houma: "shufu" },
+        futur: { ana: "ghadi nshuf", nta: "ghadi tshuf", houwa: "ghadi yshuf", hna: "ghadi nshufu", ntuma: "ghadi tshufu", houma: "ghadi yshufu" }
+      },
+      {
+        verbe: "écouter", racine: "sme3",
+        present: { ana: "kanasme3", nta: "katasme3", houwa: "kayasme3", hna: "kanasme3u", ntuma: "katasme3u", houma: "kayasme3u" },
+        passe: { ana: "sme3t", nta: "sme3ti", houwa: "sme3", hna: "sme3na", ntuma: "sme3tu", houma: "sme3u" },
+        futur: { ana: "ghadi nasme3", nta: "ghadi tasme3", houwa: "ghadi yasme3", hna: "ghadi nasme3u", ntuma: "ghadi tasme3u", houma: "ghadi yasme3u" }
+      },
+      {
+        verbe: "parler", racine: "hder",
+        present: { ana: "kanahder", nta: "katahder", houwa: "kayahder", hna: "kanahderu", ntuma: "katahderu", houma: "kayahderu" },
+        passe: { ana: "hdert", nta: "hderti", houwa: "hder", hna: "hder
