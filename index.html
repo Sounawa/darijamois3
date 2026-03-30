@@ -13,23 +13,24 @@
       direction: rtl;
       line-height: 1.6;
     }
-    .tab-active { background-color: #166534; color: white; }
+    .tab-active { background-color: #1e40af; color: white; }
     .theme-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-    .word-card:hover { background-color: #f0fdf4; }
+    .word-card:hover { background-color: #eff6ff; }
     .progress-bar { transition: width 0.5s ease-in-out; }
     .quiz-option:disabled { cursor: not-allowed; opacity: 0.8; }
     .tab-content { transition: opacity 0.3s ease; }
-    .tab-content.hidden { opacity: 0; pointer-events: none; }
-    .tab-content:not(.hidden) { opacity: 1; pointer-events: auto; }
+    .tab-content.hidden { opacity: 0; pointer-events: none; display: none; }
+    .tab-content:not(.hidden) { opacity: 1; pointer-events: auto; display: block; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-50 to-purple-100 min-h-screen">
-  <div id="app">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex flex-col">
+  <div id="app" class="flex-grow">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg sticky top-0 z-50">
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
       <div class="max-w-6xl mx-auto px-4 py-4">
-        <h1 class="text-2xl md:text-3xl font-bold text-center">🌈 Apprentissage Darija - Mois 3</h1>
-        <p class="text-center text-indigo-100 mt-1 text-sm md:text-base">Transport • Nature • Couleurs • Sentiments</p>
+        <h1 class="text-2xl md:text-3xl font-bold text-center">🌍 Apprentissage Darija - Mois 3</h1>
+        <p class="text-center text-blue-100 mt-1 text-sm md:text-base">Transport • Nature • Couleurs • Temps</p>
       </div>
     </header>
 
@@ -41,20 +42,20 @@
           <span id="progress-text">0%</span>
         </div>
         <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-          <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-3 rounded-full progress-bar" style="width: 0%"></div>
+          <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full progress-bar" style="width: 0%"></div>
         </div>
       </div>
     </div>
 
     <!-- Tabs Navigation -->
     <div class="max-w-6xl mx-auto px-4">
-      <div class="flex flex-wrap gap-2 justify-center mb-4 sticky top-20 z-40 bg-indigo-50/90 backdrop-blur-sm py-2 rounded-xl">
+      <div class="flex flex-wrap gap-2 justify-center mb-4 sticky top-20 z-40 bg-blue-50/90 backdrop-blur-sm py-2 rounded-xl shadow-sm">
         <button onclick="showTab('accueil')" id="tab-accueil" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all tab-active">🏠 Accueil</button>
-        <button onclick="showTab('lecons')" id="tab-lecons" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">📖 Leçons</button>
-        <button onclick="showTab('dialogues')" id="tab-dialogues" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">💬 Dialogues</button>
-        <button onclick="showTab('verbes')" id="tab-verbes" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">🔤 Verbes</button>
-        <button onclick="showTab('nombres')" id="tab-nombres" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">🔢 Nombres</button>
-        <button onclick="showTab('revision')" id="tab-revision" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-indigo-100">🎯 Révision</button>
+        <button onclick="showTab('lecons')" id="tab-lecons" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">📖 Leçons</button>
+        <button onclick="showTab('dialogues')" id="tab-dialogues" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">💬 Dialogues</button>
+        <button onclick="showTab('verbes')" id="tab-verbes" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">🔤 Verbes</button>
+        <button onclick="showTab('nombres')" id="tab-nombres" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">🕒 Temps</button>
+        <button onclick="showTab('revision')" id="tab-revision" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">🎯 Révision</button>
       </div>
     </div>
 
@@ -80,14 +81,35 @@
             <p class="text-gray-500 mt-2 text-sm">20 mots</p>
           </div>
           <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('lecons')" role="button" tabindex="0">
-            <div class="text-4xl md:text-5xl mb-3">😊</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-800">Sentiments</h3>
+            <div class="text-4xl md:text-5xl mb-3">🕒</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-800">Temps & Dates</h3>
             <p class="text-gray-500 mt-2 text-sm">20 mots</p>
           </div>
           <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer hover:shadow-xl" onclick="showTab('revision')" role="button" tabindex="0">
             <div class="text-4xl md:text-5xl mb-3">🎯</div>
             <h3 class="text-lg md:text-xl font-bold text-gray-800">Révision</h3>
             <p class="text-gray-500 mt-2 text-sm">Quiz interactif</p>
+          </div>
+        </div>
+        <div class="mt-8 bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">📌 Contenu du Mois 3</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="p-4 bg-blue-50 rounded-xl">
+              <div class="text-2xl font-bold text-blue-600">80</div>
+              <div class="text-sm text-gray-600">mots à apprendre</div>
+            </div>
+            <div class="p-4 bg-indigo-50 rounded-xl">
+              <div class="text-2xl font-bold text-indigo-600">5</div>
+              <div class="text-sm text-gray-600">dialogues</div>
+            </div>
+            <div class="p-4 bg-purple-50 rounded-xl">
+              <div class="text-2xl font-bold text-purple-600">20</div>
+              <div class="text-sm text-gray-600">verbes</div>
+            </div>
+            <div class="p-4 bg-pink-50 rounded-xl">
+              <div class="text-2xl font-bold text-pink-600">J/M/S</div>
+              <div class="text-sm text-gray-600">Jours/Mois/Saisons</div>
+            </div>
           </div>
         </div>
       </div>
@@ -97,7 +119,7 @@
         <div class="grid md:grid-cols-2 gap-4 md:gap-6">
           <!-- Thème Transport -->
           <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-indigo-500 to-blue-500 p-4">
+            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-4">
               <h3 class="text-xl font-bold text-white">🚌 Transport & Ville</h3>
             </div>
             <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
@@ -122,13 +144,13 @@
               <div class="space-y-3" id="theme-couleurs"></div>
             </div>
           </div>
-          <!-- Thème Sentiments -->
+          <!-- Thème Temps -->
           <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
             <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4">
-              <h3 class="text-xl font-bold text-white">😊 Sentiments</h3>
+              <h3 class="text-xl font-bold text-white">🕒 Temps & Dates</h3>
             </div>
             <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
-              <div class="space-y-3" id="theme-sentiments"></div>
+              <div class="space-y-3" id="theme-temps"></div>
             </div>
           </div>
         </div>
@@ -144,10 +166,11 @@
         <div class="space-y-4" id="verbes-container"></div>
       </div>
 
-      <!-- Nombres Tab -->
+      <!-- Temps & Dates Tab (Remplace Nombres pour éviter répétition Mois 2) -->
       <div id="content-nombres" class="tab-content hidden">
         <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4" id="nombres-container"></div>
+          <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">📅 Jours, Mois et Saisons</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4" id="temps-container"></div>
         </div>
       </div>
 
@@ -157,12 +180,12 @@
           <div id="quiz-container">
             <div class="text-center mb-4 md:mb-6">
               <h3 class="text-xl md:text-2xl font-bold text-gray-800">🎯 Quiz de Révision</h3>
-              <p class="text-gray-500 text-sm md:text-base">Testez vos connaissances !</p>
+              <p class="text-gray-500 text-sm md:text-base">Testez vos connaissances du Mois 3 !</p>
             </div>
             <div class="flex flex-wrap justify-center gap-3 mb-4 md:mb-6">
-              <button onclick="startQuiz('vocabulaire')" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all">📚 Vocabulaire</button>
-              <button onclick="startQuiz('verbes')" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-blue-600 transition-all">🔤 Verbes</button>
-              <button onclick="startQuiz('nombres')" class="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-purple-600 transition-all">🔢 Nombres</button>
+              <button onclick="startQuiz('vocabulaire')" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-blue-600 transition-all">📚 Vocabulaire</button>
+              <button onclick="startQuiz('verbes')" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all">🔤 Verbes</button>
+              <button onclick="startQuiz('temps')" class="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-purple-600 transition-all">🕒 Temps</button>
             </div>
             <div id="quiz-area" class="hidden">
               <div class="text-center mb-4">
@@ -172,14 +195,14 @@
               <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
               <div id="quiz-result" class="text-center mt-4 text-lg md:text-xl font-bold hidden"></div>
               <div class="text-center mt-4 md:mt-6">
-                <button onclick="nextQuestion()" id="next-btn" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all hidden">Suivant →</button>
+                <button onclick="nextQuestion()" id="next-btn" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-blue-600 transition-all hidden">Suivant →</button>
               </div>
             </div>
             <div id="quiz-end" class="hidden text-center">
               <div class="text-4xl md:text-5xl mb-4">🎉</div>
               <h3 class="text-xl md:text-2xl font-bold text-gray-800">Quiz terminé !</h3>
               <p class="text-gray-500 mt-2">Score : <span id="quiz-score">0</span> / <span id="quiz-total-end">10</span></p>
-              <button onclick="resetQuiz()" class="mt-4 px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-indigo-600 transition-all">Rejouer</button>
+              <button onclick="resetQuiz()" class="mt-4 px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold text-sm md:text-base hover:bg-blue-600 transition-all">Rejouer</button>
             </div>
           </div>
         </div>
@@ -214,8 +237,8 @@
         { fr: "port", arabe: "مِينَا", latin: "mina", phrase_latin: "Mina f dar l-bida", phrase_fr: "Le port à Casablanca" },
         { fr: "conducteur", arabe: "سَّوَّاق", latin: "sawaq", phrase_latin: "Sawaq mzyan", phrase_fr: "Un bon conducteur" },
         { fr: "passager", arabe: "مُسَافِر", latin: "musafir", phrase_latin: "Musafir f l-kar", phrase_fr: "Un passager dans le bus" },
-        { fr: "billett", arabe: "تِذْكِرَة", latin: "tadhkera", phrase_latin: "Tadhkera d tran", phrase_fr: "Un billet de train" },
-        { fr: "bagage", arabe: "حْقِيبَة", latin: "7qiba", phrase_latin: "7qiba kbira", phrase_fr: "Une grande valise" },
+        { fr: "billet", arabe: "تِذْكِرَة", latin: "tadhkera", phrase_latin: "Tadhkera d tran", phrase_fr: "Un billet de train" },
+        { fr: "valise", arabe: "حْقِيبَة", latin: "7qiba", phrase_latin: "7qiba kbira", phrase_fr: "Une grande valise" },
         { fr: "voyage", arabe: "سْفَرْ", latin: "sfer", phrase_latin: "Sfer mzyan", phrase_fr: "Un bon voyage" }
       ],
       nature: [
@@ -254,7 +277,7 @@
         { fr: "marron", arabe: "بُنِّي", latin: "bunni", phrase_latin: "Kursi bunni", phrase_fr: "Une chaise marron" },
         { fr: "doré", arabe: "ذَهَبِي", latin: "dhahabi", phrase_latin: "Shems dhahabiya", phrase_fr: "Un soleil doré" },
         { fr: "argenté", arabe: "فِضِّي", latin: "fiddi", phrase_latin: "Qmar fiddi", phrase_fr: "Une lune argentée" },
-        { fr: "cercle", arabe: "دَائِرَة", latin: "da'ira", phrase_latin: "Da'ira kbira", phrase_fr: "Un grand cercle" },
+        { fr: "cercle", arabe: "دَائِرَة", latin: "daira", phrase_latin: "Daira kbira", phrase_fr: "Un grand cercle" },
         { fr: "carré", arabe: "مُرَبَّع", latin: "murabba3", phrase_latin: "Murabba3 sghir", phrase_fr: "Un petit carré" },
         { fr: "triangle", arabe: "مُثَلَّث", latin: "muthallath", phrase_latin: "Muthallath akhdar", phrase_fr: "Un triangle vert" },
         { fr: "étoile (forme)", arabe: "نَجْمَة", latin: "najma", phrase_latin: "Najma safra", phrase_fr: "Une étoile jaune" },
@@ -262,27 +285,27 @@
         { fr: "petit", arabe: "صْغِير", latin: "sghir", phrase_latin: "Sghir w 7lu", phrase_fr: "Petit et mignon" },
         { fr: "long", arabe: "طْوِيل", latin: "twil", phrase_latin: "Triq twila", phrase_fr: "Une longue route" }
       ],
-      sentiments: [
-        { fr: "heureux", arabe: "فَرْحَان", latin: "fer7an", phrase_latin: "Ana fer7an l-yom", phrase_fr: "Je suis heureux aujourd'hui" },
-        { fr: "triste", arabe: "حَزِين", latin: "7zin", phrase_latin: "Walid 7zin", phrase_fr: "L'enfant est triste" },
-        { fr: "en colère", arabe: "مْعَصَّب", latin: "m3asseb", phrase_latin: "Ana m3asseb", phrase_fr: "Je suis en colère" },
-        { fr: "fatigué", arabe: "تْعِبَان", latin: "t3iban", phrase_latin: "T3iban men l-madrasa", phrase_fr: "Fatigué de l'école" },
-        { fr: "content", arabe: "مْزَيَان", latin: "mzyan", phrase_latin: "Ana mzyan", phrase_fr: "Je vais bien" },
-        { fr: "surpris", arabe: "مِتْفَاجِئ", latin: "mitfajj'e", phrase_latin: "Mitfajj'e bzaf", phrase_fr: "Très surpris" },
-        { fr: "effrayé", arabe: "خَايِف", latin: "khayef", phrase_latin: "Khayef men l-3tma", phrase_fr: "Peur du noir" },
-        { fr: "calme", arabe: "هَادِي", latin: "hadi", phrase_latin: "Walid hadi", phrase_fr: "L'enfant est calme" },
-        { fr: "excité", arabe: "مُتَحَمِّس", latin: "muta7ammis", phrase_latin: "Muta7ammis l-l3eb", phrase_fr: "Excité de jouer" },
-        { fr: "curieux", arabe: "فُضُولِي", latin: "fuduli", phrase_latin: "Walid fuduli", phrase_fr: "L'enfant est curieux" },
-        { fr: "gentil", arabe: "طَيِّب", latin: "tayeb", phrase_latin: "Walid tayeb", phrase_fr: "Un enfant gentil" },
-        { fr: "méchant", arabe: "خْبِيث", latin: "khbith", phrase_latin: "Ma tkunsh khbith", phrase_fr: "Ne sois pas méchant" },
-        { fr: "timide", arabe: "خْجُول", latin: "khjul", phrase_latin: "Bint khjula", phrase_fr: "Une fille timide" },
-        { fr: "courageux", arabe: "شُجَاع", latin: "shuja3", phrase_latin: "Walid shuja3", phrase_fr: "Un garçon courageux" },
-        { fr: "patient", arabe: "صَابِر", latin: "saber", phrase_latin: "Kun saber", phrase_fr: "Sois patient" },
-        { fr: "joyeux", arabe: "مُبْتَسِم", latin: "mubtasim", phrase_latin: "Mubtasim dima", phrase_fr: "Toujours souriant" },
-        { fr: "amoureux", arabe: "عَاشِق", latin: "3ashiq", phrase_latin: "3ashiq l-walidin", phrase_fr: "Amoureux de ses parents" },
-        { fr: "fier", arabe: "فَخُور", latin: "fakhur", phrase_latin: "Fakhur bik", phrase_fr: "Fier de toi" },
-        { fr: "reconnaissant", arabe: "شَاكِر", latin: "shakir", phrase_latin: "Shakir 3lik", phrase_fr: "Reconnaissant envers toi" },
-        { fr: "serein", arabe: "مُطْمَئِن", latin: "mutma'in", phrase_latin: "Qalbi mutma'in", phrase_fr: "Mon cœur est serein" }
+      temps: [
+        { fr: "jour", arabe: "نْهَار", latin: "nhar", phrase_latin: "Nhar zwin", phrase_fr: "Une belle journée" },
+        { fr: "nuit", arabe: "لِيل", latin: "lil", phrase_latin: "Lil tawil", phrase_fr: "Une longue nuit" },
+        { fr: "matin", arabe: "صْبَاح", latin: "sbah", phrase_latin: "Sbah l-khir", phrase_fr: "Bon matin" },
+        { fr: "soir", arabe: "مْسَا", latin: "msa", phrase_latin: "Msa l-khir", phrase_fr: "Bon soir" },
+        { fr: "aujourd'hui", arabe: "لْيُوم", latin: "lyom", phrase_latin: "Lyom nhar l-7ed", phrase_fr: "Aujourd'hui c'est dimanche" },
+        { fr: "demain", arabe: "غْدَا", latin: "ghda", phrase_latin: "Ghada ghadi nji", phrase_fr: "Je viendrai demain" },
+        { fr: "hier", arabe: "لْبَارَح", latin: "lbarah", phrase_latin: "Lbarah kunt hna", phrase_fr: "J'étais ici hier" },
+        { fr: "semaine", arabe: "سْمَانَة", latin: "smana", phrase_latin: "Smana kamla", phrase_fr: "Une semaine complète" },
+        { fr: "mois", arabe: "شْهَرْ", latin: "shhar", phrase_latin: "Shhar kamel", phrase_fr: "Un mois complet" },
+        { fr: "année", arabe: "عَام", latin: "3am", phrase_latin: "3am jadid", phrase_fr: "Une nouvelle année" },
+        { fr: "lundi", arabe: "لْتْنِين", latin: "tnin", phrase_latin: "Nhar tnin", phrase_fr: "Le jour du lundi" },
+        { fr: "mardi", arabe: "تْلَاتَا", latin: "tlata", phrase_latin: "Nhar tlata", phrase_fr: "Le jour du mardi" },
+        { fr: "mercredi", arabe: "لْرْبْعَا", latin: "rb3a", phrase_latin: "Nhar rb3a", phrase_fr: "Le jour du mercredi" },
+        { fr: "jeudi", arabe: "لْخَمِيس", latin: "khamis", phrase_latin: "Nhar khamis", phrase_fr: "Le jour du jeudi" },
+        { fr: "vendredi", arabe: "لْجُمْعَة", latin: "jum3a", phrase_latin: "Nhar jum3a", phrase_fr: "Le jour du vendredi" },
+        { fr: "samedi", arabe: "السَّبْت", latin: "sebt", phrase_latin: "Nhar sept", phrase_fr: "Le jour du samedi" },
+        { fr: "dimanche", arabe: "لْحَد", latin: "7ed", phrase_latin: "Nhar 7ed", phrase_fr: "Le jour du dimanche" },
+        { fr: "printemps", arabe: "رْبِيع", latin: "rbi3", phrase_latin: "Fasr rbi3", phrase_fr: "En saison du printemps" },
+        { fr: "été", arabe: "صَّيْف", latin: "sif", phrase_latin: "Fasr sif", phrase_fr: "En saison d'été" },
+        { fr: "hiver", arabe: "شْتَا", latin: "shta", phrase_latin: "Fasr shta", phrase_fr: "En saison d'hiver" }
       ]
     };
 
@@ -315,12 +338,12 @@
         ]
       },
       {
-        titre: "Comment tu te sens?",
+        titre: "Quel jour sommes-nous?",
         personnages: ["Papa", "Enfant"],
         repliques: [
-          { role: "Papa", latin: "Kidayr l-yom, walidi?", francais: "Comment vas-tu aujourd'hui, mon fils?", arabe: "كَيْدِيرْ لْيُومْ، وَلَدِي؟" },
-          { role: "Enfant", latin: "Ana fer7an, baba!", francais: "Je suis heureux, papa!", arabe: "أَنَا فَرْحَانْ، بَابَا!" },
-          { role: "Papa", latin: "Allah ykhellik liya.", francais: "Que Dieu te garde pour moi.", arabe: "اللهْ يْخَلِّيكْ لِيَّا" }
+          { role: "Papa", latin: "Shno nhar l-yom?", francais: "Quel jour sommes-nous aujourd'hui?", arabe: "شْنُو نْهَارْ لْيُومْ؟" },
+          { role: "Enfant", latin: "L-yom nhar tnin, baba.", francais: "Aujourd'hui c'est lundi, papa.", arabe: "لْيُومْ نْهَارْ تْنِينْ، بَابَا" },
+          { role: "Papa", latin: "S7i7, yallah l-madrasa.", francais: "Correct, allons à l'école.", arabe: "صْحِيحْ، يَلَّاهْ لْمَدْرَسَة" }
         ]
       },
       {
@@ -336,100 +359,10 @@
 
     const verbes = [
       {
-        verbe: "voyager", racine: "sfer",
-        present: { ana: "kansfer", nta: "katsfer", houwa: "kaysfer", hna: "kansferu", ntuma: "katsferu", houma: "kaysferu" },
-        passe: { ana: "sfert", nta: "sferti", houwa: "sfer", hna: "sferna", ntuma: "sfertu", houma: "sferu" },
-        futur: { ana: "ghadi nsfer", nta: "ghadi tsfer", houwa: "ghadi ysfer", hna: "ghadi nsferu", ntuma: "ghadi tsferu", houma: "ghadi ysferu" }
-      },
-      {
-        verbe: "conduire", racine: "saq",
-        present: { ana: "kansa9", nta: "katsa9", houwa: "kaysa9", hna: "kansa9u", ntuma: "katsa9u", houma: "kaysa9u" },
-        passe: { ana: "sa9t", nta: "sa9ti", houwa: "sa9", hna: "sa9na", ntuma: "sa9tu", houma: "sa9u" },
-        futur: { ana: "ghadi nsa9", nta: "ghadi tsa9", houwa: "ghadi ysa9", hna: "ghadi nsa9u", ntuma: "ghadi tsa9u", houma: "ghadi ysa9u" }
-      },
-      {
-        verbe: "marcher", racine: "msha",
-        present: { ana: "kanmshi", nta: "katmshi", houwa: "kaymshi", hna: "kanmshiw", ntuma: "katmshiw", houma: "kaymshiw" },
-        passe: { ana: "mshit", nta: "mshiti", houwa: "msha", hna: "mshina", ntuma: "mshitu", houma: "mshaw" },
-        futur: { ana: "ghadi nmshi", nta: "ghadi tmshi", houwa: "ghadi ymshi", hna: "ghadi nmshiw", ntuma: "ghadi tmshiw", houma: "ghadi ymshiw" }
-      },
-      {
-        verbe: "courir", racine: "jra",
-        present: { ana: "kanjri", nta: "kadjri", houwa: "kayjri", hna: "kanjriw", ntuma: "kadjriw", houma: "kayjriw" },
-        passe: { ana: "jrit", nta: "jriti", houwa: "jra", hna: "jrina", ntuma: "jritu", houma: "jraw" },
-        futur: { ana: "ghadi njri", nta: "ghadi tjri", houwa: "ghadi yjri", hna: "ghadi njriw", ntuma: "ghadi tjriw", houma: "ghadi yjriw" }
-      },
-      {
-        verbe: "voler", racine: "tar",
-        present: { ana: "kantar", nta: "kattar", houwa: "kaytar", hna: "kantaru", ntuma: "kattaru", houma: "kaytaru" },
-        passe: { ana: "tart", nta: "tarti", houwa: "tar", hna: "tarna", ntuma: "tartu", houma: "taru" },
-        futur: { ana: "ghadi ntar", nta: "ghadi ttar", houwa: "ghadi ytar", hna: "ghadi ntaru", ntuma: "ghadi ttaru", houma: "ghadi ytaru" }
-      },
-      {
-        verbe: "nager", racine: "3am",
-        present: { ana: "kana3um", nta: "kata3um", houwa: "kaya3um", hna: "kana3umu", ntuma: "kata3umu", houma: "kaya3umu" },
-        passe: { ana: "3omt", nta: "3omti", houwa: "3am", hna: "3omna", ntuma: "3omtu", houma: "3amu" },
-        futur: { ana: "ghadi na3um", nta: "ghadi ta3um", houwa: "ghadi ya3um", hna: "ghadi na3umu", ntuma: "ghadi ta3umu", houma: "ghadi ya3umu" }
-      },
-      {
-        verbe: "pleuvoir", racine: "shta",
-        present: { ana: "katshta", nta: "katshta", houwa: "kayshta", hna: "katshtaw", ntuma: "katshtaw", houma: "kayshtaw" },
-        passe: { ana: "shtat", nta: "shtati", houwa: "shta", hna: "shtana", ntuma: "shtatu", houma: "shtaw" },
-        futur: { ana: "ghadi tshta", nta: "ghadi tshta", houwa: "ghadi yshta", hna: "ghadi tshtaw", ntuma: "ghadi tshtaw", houma: "ghadi yshtaw" }
-      },
-      {
-        verbe: "briller", racine: "dha",
-        present: { ana: "kandhi", nta: "katdhi", houwa: "kaydhi", hna: "kandhiw", ntuma: "katdhiw", houma: "kaydhiw" },
-        passe: { ana: "dhayt", nta: "dhayti", houwa: "dha", hna: "dhayna", ntuma: "dhaytu", houma: "dhaw" },
-        futur: { ana: "ghadi ndhi", nta: "ghadi tdhi", houwa: "ghadi ydhi", hna: "ghadi ndhiw", ntuma: "ghadi tdhiw", houma: "ghadi ydhiw" }
-      },
-      {
-        verbe: "ressentir", racine: "7ess",
-        present: { ana: "kana7ess", nta: "kata7ess", houwa: "kaya7ess", hna: "kana7essu", ntuma: "kata7essu", houma: "kaya7essu" },
-        passe: { ana: "7essit", nta: "7essiti", houwa: "7ess", hna: "7essina", ntuma: "7essitu", houma: "7essu" },
-        futur: { ana: "ghadi na7ess", nta: "ghadi ta7ess", houwa: "ghadi ya7ess", hna: "ghadi na7essu", ntuma: "ghadi ta7essu", houma: "ghadi ya7essu" }
-      },
-      {
-        verbe: "sourire", racine: "bsem",
-        present: { ana: "kanbessem", nta: "katbessem", houwa: "kaybessem", hna: "kanbessemu", ntuma: "katbessemu", houma: "kaybessemu" },
-        passe: { ana: "bessemt", nta: "bessemti", houwa: "bessem", hna: "bessemna", ntuma: "bessemtu", houma: "bessemu" },
-        futur: { ana: "ghadi nbessem", nta: "ghadi tbessem", houwa: "ghadi ybessem", hna: "ghadi nbessemu", ntuma: "ghadi tbessemu", houma: "ghadi ybessemu" }
-      },
-      {
-        verbe: "pleurer", racine: "bka",
-        present: { ana: "kanbki", nta: "katbki", houwa: "kaybki", hna: "kanbkiw", ntuma: "katbkiw", houma: "kaybkiw" },
-        passe: { ana: "bkit", nta: "bkiti", houwa: "bka", hna: "bkina", ntuma: "bkitu", houma: "bkaw" },
-        futur: { ana: "ghadi nbki", nta: "ghadi tbki", houwa: "ghadi ybki", hna: "ghadi nbkiw", ntuma: "ghadi tbkiw", houma: "ghadi ybkiw" }
-      },
-      {
-        verbe: "rire", racine: "d7ek",
-        present: { ana: "kand7ek", nta: "katd7ek", houwa: "kayd7ek", hna: "kand7ku", ntuma: "katd7ku", houma: "kayd7ku" },
-        passe: { ana: "d7ekt", nta: "d7ekti", houwa: "d7ek", hna: "d7ekna", ntuma: "d7ektu", houma: "d7ku" },
-        futur: { ana: "ghadi nd7ek", nta: "ghadi td7ek", houwa: "ghadi yd7ek", hna: "ghadi nd7ku", ntuma: "ghadi td7ku", houma: "ghadi yd7ku" }
-      },
-      {
-        verbe: "attendre", racine: "tsenna",
-        present: { ana: "kanatsenna", nta: "katatsenna", houwa: "kayatsenna", hna: "kanatsennaw", ntuma: "katatsennaw", houma: "kayatsennaw" },
-        passe: { ana: "tsennit", nta: "tsenniti", houwa: "tsenna", hna: "tsennina", ntuma: "tsennitu", houma: "tsennaw" },
-        futur: { ana: "ghadi natsenna", nta: "ghadi tatsenna", houwa: "ghadi yatsenna", hna: "ghadi natsennaw", ntuma: "ghadi tatsennaw", houma: "ghadi yatsennaw" }
-      },
-      {
-        verbe: "arriver", racine: "wsel",
-        present: { ana: "kanawsel", nta: "katawsel", houwa: "kayawsel", hna: "kanawselu", ntuma: "katawselu", houma: "kayawselu" },
-        passe: { ana: "wselt", nta: "wselti", houwa: "wsel", hna: "wselna", ntuma: "wseltu", houma: "wselu" },
-        futur: { ana: "ghadi nawsel", nta: "ghadi tawsel", houwa: "ghadi yawsel", hna: "ghadi nawselu", ntuma: "ghadi tawselu", houma: "ghadi yawselu" }
-      },
-      {
-        verbe: "partir", racine: "msha",
-        present: { ana: "kanmshi", nta: "katmshi", houwa: "kaymshi", hna: "kanmshiw", ntuma: "katmshiw", houma: "kaymshiw" },
-        passe: { ana: "mshit", nta: "mshiti", houwa: "msha", hna: "mshina", ntuma: "mshitu", houma: "mshaw" },
-        futur: { ana: "ghadi nmshi", nta: "ghadi tmshi", houwa: "ghadi ymshi", hna: "ghadi nmshiw", ntuma: "ghadi tmshiw", houma: "ghadi ymshiw" }
-      },
-      {
-        verbe: "regarder", racine: "shuf",
-        present: { ana: "kanshuf", nta: "katshuf", houwa: "kayshuf", hna: "kanshufu", ntuma: "katshufu", houma: "kayshufu" },
-        passe: { ana: "shuft", nta: "shufti", houwa: "shuf", hna: "shufna", ntuma: "shuftu", houma: "shufu" },
-        futur: { ana: "ghadi nshuf", nta: "ghadi tshuf", houwa: "ghadi yshuf", hna: "ghadi nshufu", ntuma: "ghadi tshufu", houma: "ghadi yshufu" }
+        verbe: "parler", racine: "hder",
+        present: { ana: "kanahder", nta: "katahder", houwa: "kayahder", hna: "kanahderu", ntuma: "katahderu", houma: "kayahderu" },
+        passe: { ana: "hdert", nta: "hderti", houwa: "hder", hna: "hderna", ntuma: "hdertu", houma: "hderu" },
+        futur: { ana: "ghadi nahder", nta: "ghadi tahder", houwa: "ghadi yahder", hna: "ghadi nahderu", ntuma: "ghadi tahderu", houma: "ghadi yahderu" }
       },
       {
         verbe: "écouter", racine: "sme3",
@@ -438,6 +371,488 @@
         futur: { ana: "ghadi nasme3", nta: "ghadi tasme3", houwa: "ghadi yasme3", hna: "ghadi nasme3u", ntuma: "ghadi tasme3u", houma: "ghadi yasme3u" }
       },
       {
-        verbe: "parler", racine: "hder",
-        present: { ana: "kanahder", nta: "katahder", houwa: "kayahder", hna: "kanahderu", ntuma: "katahderu", houma: "kayahderu" },
-        passe: { ana: "hdert", nta: "hderti", houwa: "hder", hna: "hder
+        verbe: "regarder", racine: "shuf",
+        present: { ana: "kanshuf", nta: "katshuf", houwa: "kayshuf", hna: "kanshufu", ntuma: "katshufu", houma: "kayshufu" },
+        passe: { ana: "shuft", nta: "shufti", houwa: "shuf", hna: "shufna", ntuma: "shuftu", houma: "shufu" },
+        futur: { ana: "ghadi nshuf", nta: "ghadi tshuf", houwa: "ghadi yshuf", hna: "ghadi nshufu", ntuma: "ghadi tshufu", houma: "ghadi yshufu" }
+      },
+      {
+        verbe: "dormir", racine: "n3as",
+        present: { ana: "kanan3as", nta: "katan3as", houwa: "kayan3as", hna: "kanan3asu", ntuma: "katan3asu", houma: "kayan3asu" },
+        passe: { ana: "n3ast", nta: "n3asti", houwa: "n3as", hna: "n3asna", ntuma: "n3astu", houma: "n3asu" },
+        futur: { ana: "ghadi nan3as", nta: "ghadi tan3as", houwa: "ghadi yan3as", hna: "ghadi nan3asu", ntuma: "ghadi tan3asu", houma: "ghadi yan3asu" }
+      },
+      {
+        verbe: "rêver", racine: "7lem",
+        present: { ana: "kana7lem", nta: "kata7lem", houwa: "kaya7lem", hna: "kana7lemu", ntuma: "kata7lemu", houma: "kaya7lemu" },
+        passe: { ana: "7lemt", nta: "7lemti", houwa: "7lem", hna: "7lemna", ntuma: "7lemtu", houma: "7lemu" },
+        futur: { ana: "ghadi na7lem", nta: "ghadi ta7lem", houwa: "ghadi ya7lem", hna: "ghadi na7lemu", ntuma: "ghadi ta7lemu", houma: "ghadi ya7lemu" }
+      },
+      {
+        verbe: "jouer", racine: "l3eb",
+        present: { ana: "kanal3eb", nta: "katal3eb", houwa: "kayal3eb", hna: "kanal3ebu", ntuma: "katal3ebu", houma: "kayal3ebu" },
+        passe: { ana: "l3ebt", nta: "l3ebti", houwa: "l3eb", hna: "l3ebna", ntuma: "l3ebtu", houma: "l3ebu" },
+        futur: { ana: "ghadi nal3eb", nta: "ghadi tal3eb", houwa: "ghadi yal3eb", hna: "ghadi nal3ebu", ntuma: "ghadi tal3ebu", houma: "ghadi yal3ebu" }
+      },
+      {
+        verbe: "aimer", racine: "7eb",
+        present: { ana: "kana7eb", nta: "kata7eb", houwa: "kaya7eb", hna: "kana7ebu", ntuma: "kata7ebu", houma: "kaya7ebu" },
+        passe: { ana: "7ebbt", nta: "7ebbti", houwa: "7eb", hna: "7ebna", ntuma: "7ebtu", houma: "7ebu" },
+        futur: { ana: "ghadi na7eb", nta: "ghadi ta7eb", houwa: "ghadi ya7eb", hna: "ghadi na7ebu", ntuma: "ghadi ta7ebu", houma: "ghadi ya7ebu" }
+      },
+      {
+        verbe: "détester", racine: "kreh",
+        present: { ana: "kanakreh", nta: "katakreh", houwa: "kayakreh", hna: "kanakrehu", ntuma: "katakrehu", houma: "kayakrehu" },
+        passe: { ana: "kreht", nta: "krehti", houwa: "kreh", hna: "krehna", ntuma: "krehtu", houma: "krehu" },
+        futur: { ana: "ghadi nakreh", nta: "ghadi takreh", houwa: "ghadi yakreh", hna: "ghadi nakrehu", ntuma: "ghadi takrehu", houma: "ghadi yakrehu" }
+      },
+      {
+        verbe: "connaître (qn)", racine: "3ref",
+        present: { ana: "kana3ref", nta: "kata3ref", houwa: "kaya3ref", hna: "kana3refu", ntuma: "kata3refu", houma: "kaya3refu" },
+        passe: { ana: "3reft", nta: "3refti", houwa: "3ref", hna: "3refna", ntuma: "3reftu", houma: "3refu" },
+        futur: { ana: "ghadi na3ref", nta: "ghadi ta3ref", houwa: "ghadi ya3ref", hna: "ghadi na3refu", ntuma: "ghadi ta3refu", houma: "ghadi ya3refu" }
+      },
+      {
+        verbe: "savoir", racine: "3lem",
+        present: { ana: "kana3lem", nta: "kata3lem", houwa: "kaya3lem", hna: "kana3lemu", ntuma: "kata3lemu", houma: "kaya3lemu" },
+        passe: { ana: "3lemt", nta: "3lemti", houwa: "3lem", hna: "3lemna", ntuma: "3lemtu", houma: "3lemu" },
+        futur: { ana: "ghadi na3lem", nta: "ghadi ta3lem", houwa: "ghadi ya3lem", hna: "ghadi na3lemu", ntuma: "ghadi ta3lemu", houma: "ghadi ya3lemu" }
+      },
+      {
+        verbe: "pouvoir", racine: "qder",
+        present: { ana: "kanaqder", nta: "kataqder", houwa: "kayaqder", hna: "kanaqderu", ntuma: "kataqderu", houma: "kayaqderu" },
+        passe: { ana: "qdert", nta: "qderti", houwa: "qder", hna: "qderna", ntuma: "qdertu", houma: "qderu" },
+        futur: { ana: "ghadi naqder", nta: "ghadi taqder", houwa: "ghadi yaqder", hna: "ghadi naqderu", ntuma: "ghadi taqderu", houma: "ghadi yaqderu" }
+      },
+      {
+        verbe: "vouloir", racine: "bgha",
+        present: { ana: "kanabghi", nta: "katabghi", houwa: "kayabghi", hna: "kanabghiw", ntuma: "katabghiw", houma: "kayabghiw" },
+        passe: { ana: "bghit", nta: "bghiti", houwa: "bgha", hna: "bghina", ntuma: "bghitu", houma: "bghaw" },
+        futur: { ana: "ghadi nabghi", nta: "ghadi tabghi", houwa: "ghadi yabghi", hna: "ghadi nabghiw", ntuma: "ghadi tabghiw", houma: "ghadi yabghiw" }
+      },
+      {
+        verbe: "devoir", racine: "khsas",
+        present: { ana: "khsasni", nta: "khsasek", houwa: "khsasu", hna: "khsasna", ntuma: "khsaskum", houma: "khsashum" },
+        passe: { ana: "khsasni", nta: "khsasek", houwa: "khsasu", hna: "khsasna", ntuma: "khsaskum", houma: "khsashum" },
+        futur: { ana: "ghadi ykhsasni", nta: "ghadi ykhsasek", houwa: "ghadi ykhsasu", hna: "ghadi ykhsasna", ntuma: "ghadi ykhsaskum", houma: "ghadi ykhsashum" }
+      },
+      {
+        verbe: "prendre", racine: "khod",
+        present: { ana: "kanakhod", nta: "katakhod", houwa: "kayakhod", hna: "kanakhodu", ntuma: "katakhodu", houma: "kayakhodu" },
+        passe: { ana: "khodt", nta: "khodti", houwa: "khod", hna: "khodna", ntuma: "khodtu", houma: "khodu" },
+        futur: { ana: "ghadi nakhod", nta: "ghadi takhod", houwa: "ghadi yakhod", hna: "ghadi nakhodu", ntuma: "ghadi takhodu", houma: "ghadi yakhodu" }
+      },
+      {
+        verbe: "donner", racine: "3ti",
+        present: { ana: "kana3ti", nta: "kata3ti", houwa: "kaya3ti", hna: "kana3tiw", ntuma: "kata3tiw", houma: "kaya3tiw" },
+        passe: { ana: "3tit", nta: "3titi", houwa: "3ta", hna: "3tina", ntuma: "3titu", houma: "3taw" },
+        futur: { ana: "ghadi na3ti", nta: "ghadi ta3ti", houwa: "ghadi ya3ti", hna: "ghadi na3tiw", ntuma: "ghadi ta3tiw", houma: "ghadi ya3tiw" }
+      },
+      {
+        verbe: "ouvrir", racine: "7ll",
+        present: { ana: "kana7ll", nta: "kata7ll", houwa: "kaya7ll", hna: "kana7llu", ntuma: "kata7llu", houma: "kaya7llu" },
+        passe: { ana: "7llit", nta: "7lliti", houwa: "7ll", hna: "7llina", ntuma: "7llitu", houma: "7llaw" },
+        futur: { ana: "ghadi na7ll", nta: "ghadi ta7ll", houwa: "ghadi ya7ll", hna: "ghadi na7llu", ntuma: "ghadi ta7llu", houma: "ghadi ya7llu" }
+      },
+      {
+        verbe: "fermer", racine: "sdd",
+        present: { ana: "kanasdd", nta: "katasdd", houwa: "kayasdd", hna: "kanasddu", ntuma: "katasddu", houma: "kayasddu" },
+        passe: { ana: "sddt", nta: "sddti", houwa: "sdd", hna: "sddna", ntuma: "sddtu", houma: "sddu" },
+        futur: { ana: "ghadi nasdd", nta: "ghadi tasdd", houwa: "ghadi yasdd", hna: "ghadi nasddu", ntuma: "ghadi tasddu", houma: "ghadi yasddu" }
+      },
+      {
+        verbe: "allumer", racine: "7wwed",
+        present: { ana: "kana7wwed", nta: "kata7wwed", houwa: "kaya7wwed", hna: "kana7wwedu", ntuma: "kata7wwedu", houma: "kaya7wwedu" },
+        passe: { ana: "7wwedt", nta: "7wwedti", houwa: "7wwed", hna: "7wwedna", ntuma: "7wwedtu", houma: "7wwedu" },
+        futur: { ana: "ghadi na7wwed", nta: "ghadi ta7wwed", houwa: "ghadi ya7wwed", hna: "ghadi na7wwedu", ntuma: "ghadi ta7wwedu", houma: "ghadi ya7wwedu" }
+      },
+      {
+        verbe: "éteindre", racine: "tfe",
+        present: { ana: "kanatfe", nta: "katatfe", houwa: "kayatfe", hna: "kanatfew", ntuma: "katatfew", houma: "kayatfew" },
+        passe: { ana: "tfayt", nta: "tfayti", houwa: "tfa", hna: "tfayna", ntuma: "tfaytu", houma: "tfaw" },
+        futur: { ana: "ghadi natfe", nta: "ghadi tatfe", houwa: "ghadi yatfe", hna: "ghadi natfew", ntuma: "ghadi tatfew", houma: "ghadi yatfew" }
+      },
+      {
+        verbe: "acheter", racine: "chri",
+        present: { ana: "kanachri", nta: "katachri", houwa: "kayachri", hna: "kanachriw", ntuma: "katachriw", houma: "kayachriw" },
+        passe: { ana: "shrit", nta: "shriti", houwa: "shra", hna: "shrina", ntuma: "shritu", houma: "shraw" },
+        futur: { ana: "ghadi nachri", nta: "ghadi tachri", houwa: "ghadi yachri", hna: "ghadi nachriw", ntuma: "ghadi tachriw", houma: "ghadi yachriw" }
+      }
+    ];
+
+    const tempsData = [
+      { fr: "Lundi", latin: "Tnin", arabe: "لْتْنِين" },
+      { fr: "Mardi", latin: "Tlata", arabe: "تْلَاتَا" },
+      { fr: "Mercredi", latin: "Rb3a", arabe: "لْرْبْعَا" },
+      { fr: "Jeudi", latin: "Khamis", arabe: "لْخَمِيس" },
+      { fr: "Vendredi", latin: "Jum3a", arabe: "لْجُمْعَة" },
+      { fr: "Samedi", latin: "Sebt", arabe: "السَّبْت" },
+      { fr: "Dimanche", latin: "7ed", arabe: "لْحَد" },
+      { fr: "Janvier", latin: "Yanayer", arabe: "يَنَايِر" },
+      { fr: "Février", latin: "Fibrayer", arabe: "فِبْرَايِر" },
+      { fr: "Mars", latin: "Mars", arabe: "مَارْس" },
+      { fr: "Avril", latin: "Ibril", arabe: "إِبْرِيل" },
+      { fr: "Mai", latin: "Mayu", arabe: "مَايُو" },
+      { fr: "Juin", latin: "Yunyu", arabe: "يُونْيُو" },
+      { fr: "Juillet", latin: "Yulyuz", arabe: "يُولْيُوز" },
+      { fr: "Août", latin: "Ghusht", arabe: "غُشْت" },
+      { fr: "Septembre", latin: "Shutanbir", arabe: "شُتَنْبِر" },
+      { fr: "Octobre", latin: "Uktubir", arabe: "أُكْتُوبِر" },
+      { fr: "Novembre", latin: "Nuwambir", arabe: "نُوفَمْبِر" },
+      { fr: "Décembre", latin: "Dujambir", arabe: "دُجَمْبِر" },
+      { fr: "Printemps", latin: "Rbi3", arabe: "رْبِيع" },
+      { fr: "Été", latin: "Sif", arabe: "صَّيْف" },
+      { fr: "Automne", latin: "Kharif", arabe: "خَرِيف" },
+      { fr: "Hiver", latin: "Shta", arabe: "شْتَا" }
+    ];
+
+    const personLabels = [
+      { key: "ana", label: "ana (je)" },
+      { key: "nta", label: "nta (tu)" },
+      { key: "houwa", label: "houwa (il)" },
+      { key: "hna", label: "hna (nous)" },
+      { key: "ntuma", label: "ntuma (vous)" },
+      { key: "houma", label: "houma (ils)" }
+    ];
+
+    // ==================== ÉTAT DU QUIZ ====================
+    let quizQuestions = [];
+    let currentQuestion = 0;
+    let score = 0;
+    let quizType = '';
+
+    // ==================== GESTION DES TABS ====================
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.getElementById('content-' + tabName).classList.remove('hidden');
+      
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('tab-active');
+        btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-blue-100');
+      });
+      const activeTab = document.getElementById('tab-' + tabName);
+      activeTab.classList.add('tab-active');
+      activeTab.classList.remove('bg-white', 'text-gray-700', 'hover:bg-blue-100');
+      
+      if (window.innerWidth < 768) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // ==================== RENDU DU VOCABULAIRE ====================
+    function renderVocab() {
+      const themes = [
+        { id: 'transport', data: vocabulaire.transport },
+        { id: 'nature', data: vocabulaire.nature },
+        { id: 'couleurs', data: vocabulaire.couleurs },
+        { id: 'temps', data: vocabulaire.temps }
+      ];
+
+      themes.forEach(theme => {
+        const container = document.getElementById('theme-' + theme.id);
+        if (!container) return;
+        container.innerHTML = theme.data.map(word => `
+          <div class="word-card p-3 rounded-lg border border-gray-200 transition-all cursor-pointer hover:border-blue-300">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold text-gray-800">${escapeHtml(word.fr)}</span>
+              <span class="text-blue-600 font-semibold">${escapeHtml(word.latin)}</span>
+            </div>
+            <div class="text-right">
+              <span class="arabic-text text-xl text-gray-700">${escapeHtml(word.arabe)}</span>
+            </div>
+            <div class="mt-2 text-sm text-gray-500 border-t pt-2">
+              <p><span class="text-blue-600">${escapeHtml(word.phrase_latin)}</span></p>
+              <p>${escapeHtml(word.phrase_fr)}</p>
+            </div>
+          </div>
+        `).join('');
+      });
+    }
+
+    // ==================== RENDU DES DIALOGUES ====================
+    function renderDialogues() {
+      const container = document.getElementById('dialogues-container');
+      if (!container) return;
+      container.innerHTML = dialogues.map((dialogue) => `
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4">
+            <h3 class="text-xl font-bold text-white">💬 ${escapeHtml(dialogue.titre)}</h3>
+            <p class="text-blue-100 text-sm">Personnages: ${dialogue.personnages.map(escapeHtml).join(', ')}</p>
+          </div>
+          <div class="p-4 space-y-3">
+            ${dialogue.repliques.map(rep => `
+              <div class="p-3 rounded-lg ${rep.role.includes('Enfant') || rep.role.includes('Élève') ? 'bg-blue-50 ml-4' : 'bg-gray-50 mr-4'}">
+                <div class="font-semibold text-sm text-gray-600 mb-1">${escapeHtml(rep.role)}</div>
+                <div class="flex justify-between items-center mb-1 flex-wrap gap-2">
+                  <span class="text-blue-600 font-semibold">${escapeHtml(rep.latin)}</span>
+                  <span class="arabic-text text-lg">${escapeHtml(rep.arabe)}</span>
+                </div>
+                <div class="text-gray-500 text-sm">${escapeHtml(rep.francais)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== RENDU DES VERBES ====================
+    function renderVerbs() {
+      const container = document.getElementById('verbes-container');
+      if (!container) return;
+      container.innerHTML = verbes.map(verb => `
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 flex justify-between items-center">
+            <div>
+              <h3 class="text-xl font-bold text-white">🔤 ${escapeHtml(verb.verbe)}</h3>
+              <p class="text-blue-100">Racine: ${escapeHtml(verb.racine)}</p>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="grid gap-4">
+              <div>
+                <h4 class="font-bold text-blue-600 mb-2">Présent</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  ${personLabels.map(p => `
+                    <div class="p-2 bg-blue-50 rounded">
+                      <div class="text-xs text-gray-500">${escapeHtml(p.label)}</div>
+                      <div class="font-semibold">${escapeHtml(verb.present[p.key])}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-amber-600 mb-2">Passé</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  ${personLabels.map(p => `
+                    <div class="p-2 bg-amber-50 rounded">
+                      <div class="text-xs text-gray-500">${escapeHtml(p.label)}</div>
+                      <div class="font-semibold">${escapeHtml(verb.passe[p.key])}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-purple-600 mb-2">Futur</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  ${personLabels.map(p => `
+                    <div class="p-2 bg-purple-50 rounded">
+                      <div class="text-xs text-gray-500">${escapeHtml(p.label)}</div>
+                      <div class="font-semibold">${escapeHtml(verb.futur[p.key])}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== RENDU DU TEMPS ====================
+    function renderTemps() {
+      const container = document.getElementById('temps-container');
+      if (!container) return;
+      container.innerHTML = tempsData.map(n => `
+        <div class="p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg text-center hover:from-blue-50 hover:to-indigo-50 transition-all cursor-pointer">
+          <div class="text-lg font-bold text-gray-800">${escapeHtml(n.fr)}</div>
+          <div class="text-blue-600 font-semibold">${escapeHtml(n.latin)}</div>
+          <div class="arabic-text text-md text-gray-700">${escapeHtml(n.arabe)}</div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== FONCTION D'ÉCHAPPEMENT HTML ====================
+    function escapeHtml(text) {
+      if (typeof text !== 'string') return text;
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // ==================== QUIZ FUNCTIONS ====================
+    function startQuiz(type) {
+      quizType = type;
+      currentQuestion = 0;
+      score = 0;
+      
+      if (type === 'vocabulaire') {
+        const allWords = [...vocabulaire.transport, ...vocabulaire.nature, ...vocabulaire.couleurs, ...vocabulaire.temps];
+        quizQuestions = shuffleArray(allWords).slice(0, 10).map(word => ({
+          question: `Comment dit-on "${word.fr}" en darija?`,
+          answer: word.latin,
+          options: generateOptions(word.latin, allWords.map(w => w.latin))
+        }));
+      } else if (type === 'verbes') {
+        quizQuestions = shuffleArray([...verbes]).slice(0, 10).map(verb => ({
+          question: `Quelle est la racine du verbe "${verb.verbe}"?`,
+          answer: verb.racine,
+          options: generateOptions(verb.racine, verbes.map(v => v.racine))
+        }));
+      } else if (type === 'temps') {
+        quizQuestions = shuffleArray([...tempsData]).slice(0, 10).map(item => ({
+          question: `Comment dit-on ${item.fr} en darija?`,
+          answer: item.latin,
+          options: generateOptions(item.latin, tempsData.map(num => num.latin))
+        }));
+      }
+
+      document.getElementById('quiz-area').classList.remove('hidden');
+      document.getElementById('quiz-end').classList.add('hidden');
+      document.getElementById('quiz-total').textContent = quizQuestions.length;
+      showQuestion();
+    }
+
+    function generateOptions(correct, allOptions) {
+      const uniqueOptions = [...new Set(allOptions)];
+      const wrong = shuffleArray(uniqueOptions.filter(o => o !== correct)).slice(0, 3);
+      return shuffleArray([correct, ...wrong]);
+    }
+
+    function shuffleArray(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function showQuestion() {
+      const q = quizQuestions[currentQuestion];
+      document.getElementById('quiz-current').textContent = currentQuestion + 1;
+      document.getElementById('quiz-question').textContent = q.question;
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('next-btn').classList.add('hidden');
+      
+      const optionsContainer = document.getElementById('quiz-options');
+      optionsContainer.innerHTML = q.options.map((opt) => `
+        <button data-answer="${opt.replace(/"/g, '&quot;')}" 
+                class="quiz-option p-4 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer text-sm md:text-base">
+          ${escapeHtml(opt)}
+        </button>
+      `).join('');
+      
+      setTimeout(() => {
+        document.querySelectorAll('.quiz-option').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            checkAnswer(this.dataset.answer);
+          });
+        });
+      }, 0);
+    }
+
+    function checkAnswer(selectedAnswer) {
+      const q = quizQuestions[currentQuestion];
+      const resultEl = document.getElementById('quiz-result');
+      const options = document.querySelectorAll('.quiz-option');
+      
+      options.forEach(opt => {
+        opt.disabled = true;
+        const optAnswer = opt.dataset.answer;
+        if (optAnswer === q.answer) {
+          opt.classList.add('bg-green-100', 'border-green-500', 'text-green-800');
+        } else if (optAnswer === selectedAnswer && selectedAnswer !== q.answer) {
+          opt.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+        }
+      });
+
+      if (selectedAnswer === q.answer) {
+        score++;
+        resultEl.textContent = '✅ Correct !';
+        resultEl.className = 'text-center mt-4 text-lg md:text-xl font-bold text-green-600';
+        saveProgress(q.answer);
+      } else {
+        resultEl.textContent = `❌ Faux ! La réponse est : ${q.answer}`;
+        resultEl.className = 'text-center mt-4 text-lg md:text-xl font-bold text-red-600';
+      }
+      resultEl.classList.remove('hidden');
+      document.getElementById('next-btn').classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < quizQuestions.length) {
+        showQuestion();
+      } else {
+        document.getElementById('quiz-area').classList.add('hidden');
+        document.getElementById('quiz-end').classList.remove('hidden');
+        document.getElementById('quiz-score').textContent = score;
+        document.getElementById('quiz-total-end').textContent = quizQuestions.length;
+        updateProgressBar();
+      }
+    }
+
+    function resetQuiz() {
+      document.getElementById('quiz-area').classList.add('hidden');
+      document.getElementById('quiz-end').classList.add('hidden');
+    }
+
+    // ==================== GESTION DE LA PROGRESSION ====================
+    function saveProgress(answer) {
+      try {
+        let mastered = JSON.parse(localStorage.getItem('darijaMois3Mastered') || '[]');
+        if (!mastered.includes(answer)) {
+          mastered.push(answer);
+          localStorage.setItem('darijaMois3Mastered', JSON.stringify(mastered));
+          updateProgressBar();
+        }
+      } catch (e) {
+        console.warn('localStorage non disponible:', e);
+      }
+    }
+
+    function updateProgressBar() {
+      try {
+        const mastered = JSON.parse(localStorage.getItem('darijaMois3Mastered') || '[]');
+        const totalWords = vocabulaire.transport.length + vocabulaire.nature.length + 
+                          vocabulaire.couleurs.length + vocabulaire.temps.length;
+        const progress = Math.min(100, Math.round((mastered.length / totalWords) * 100));
+        document.getElementById('progress-bar').style.width = progress + '%';
+        document.getElementById('progress-text').textContent = progress + '%';
+      } catch (e) {
+        console.warn('Erreur mise à jour progression:', e);
+      }
+    }
+
+    function initProgress() {
+      updateProgressBar();
+    }
+
+    // ==================== INITIALISATION ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      renderVocab();
+      renderDialogues();
+      renderVerbs();
+      renderTemps();
+      initProgress();
+      
+      document.querySelectorAll('.theme-card, .word-card').forEach(card => {
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.click();
+          }
+        });
+      });
+    });
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (!document.getElementById('quiz-area').classList.contains('hidden')) {
+          showQuestion();
+        }
+      }, 250);
+    });
+  </script>
+</body>
+</html>
