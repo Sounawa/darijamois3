@@ -8,194 +8,231 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     [x-cloak] { display: none !important; }
-    .arabic-text { font-family: 'Amiri', 'Noto Naskh Arabic', sans-serif; direction: rtl; line-height: 1.6; }
-    .tab-active { background-color: #1e40af; color: white; }
-    .theme-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-    .word-card:hover { background-color: #eff6ff; }
-    .progress-bar { transition: width 0.5s ease-in-out; }
-    .quiz-option:disabled { cursor: not-allowed; opacity: 0.8; }
-    .tab-content.hidden { display: none; }
-    .tab-content:not(.hidden) { display: block; }
+    .arabic-text { 
+      font-family: 'Amiri', 'Noto Naskh Arabic', sans-serif; 
+      direction: rtl; 
+      line-height: 1.6; 
+    }
+    .tab-active { 
+      background-color: #1e40af; 
+      color: white; 
+    }
+    .tab-btn {
+      cursor: pointer;
+      user-select: none;
+    }
+    .theme-card {
+      cursor: pointer;
+      user-select: none;
+    }
+    .word-card {
+      cursor: pointer;
+      user-select: none;
+    }
+    .word-card:hover { 
+      background-color: #eff6ff; 
+    }
+    .progress-bar { 
+      transition: width 0.5s ease-in-out; 
+    }
+    .quiz-option {
+      cursor: pointer;
+      user-select: none;
+    }
+    .quiz-option:disabled { 
+      cursor: not-allowed; 
+      opacity: 0.8; 
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex flex-col">
-  <div id="app" class="flex-grow">
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
-      <div class="max-w-6xl mx-auto px-4 py-4">
-        <h1 class="text-2xl md:text-3xl font-bold text-center">🌍 Apprentissage Darija - Mois 3</h1>
-        <p class="text-center text-blue-100 mt-1 text-sm md:text-base">Transport • Nature • Couleurs • Temps</p>
-      </div>
-    </header>
+  
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-center">🌍 Apprentissage Darija - Mois 3</h1>
+      <p class="text-center text-blue-100 mt-1 text-sm md:text-base">Transport • Nature • Couleurs • Temps</p>
+    </div>
+  </header>
 
-    <!-- Progress -->
-    <div class="max-w-6xl mx-auto px-4 py-3">
-      <div class="bg-white rounded-xl p-4 shadow-md">
-        <div class="flex justify-between text-sm text-gray-600 mb-2">
-          <span>📊 Progression</span>
-          <span id="progress-text">0%</span>
-        </div>
-        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-          <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full progress-bar" style="width: 0%"></div>
-        </div>
+  <!-- Progress -->
+  <div class="max-w-6xl mx-auto px-4 py-3">
+    <div class="bg-white rounded-xl p-4 shadow-md">
+      <div class="flex justify-between text-sm text-gray-600 mb-2">
+        <span>📊 Progression</span>
+        <span id="progress-text">0%</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full progress-bar" style="width: 0%"></div>
       </div>
     </div>
-
-    <!-- Tabs -->
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="flex flex-wrap gap-2 justify-center mb-4 sticky top-20 z-40 bg-blue-50/90 backdrop-blur-sm py-2 rounded-xl">
-        <button onclick="showTab('accueil')" id="tab-accueil" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all tab-active">🏠 Accueil</button>
-        <button onclick="showTab('lecons')" id="tab-lecons" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">📖 Leçons</button>
-        <button onclick="showTab('dialogues')" id="tab-dialogues" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">💬 Dialogues</button>
-        <button onclick="showTab('verbes')" id="tab-verbes" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">🔤 Verbes</button>
-        <button onclick="showTab('nombres')" id="tab-nombres" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">🕒 Temps</button>
-        <button onclick="showTab('revision')" id="tab-revision" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100">🎯 Révision</button>
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 pb-8">
-      
-      <!-- Accueil -->
-      <div id="content-accueil" class="tab-content">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer" onclick="showTab('lecons')">
-            <div class="text-4xl md:text-5xl mb-3">🚌</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-800">Leçons</h3>
-            <p class="text-gray-500 mt-2 text-sm">4 thèmes • 80 mots</p>
-          </div>
-          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer" onclick="showTab('dialogues')">
-            <div class="text-4xl md:text-5xl mb-3">💬</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-800">Dialogues</h3>
-            <p class="text-gray-500 mt-2 text-sm">5 dialogues</p>
-          </div>
-          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer" onclick="showTab('verbes')">
-            <div class="text-4xl md:text-5xl mb-3">🔤</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-800">Verbes</h3>
-            <p class="text-gray-500 mt-2 text-sm">20 verbes conjugués</p>
-          </div>
-          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer" onclick="showTab('nombres')">
-            <div class="text-4xl md:text-5xl mb-3">🕒</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-800">Temps & Dates</h3>
-            <p class="text-gray-500 mt-2 text-sm">Jours/Mois/Saisons</p>
-          </div>
-          <div class="bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center theme-card transition-all cursor-pointer" onclick="showTab('revision')">
-            <div class="text-4xl md:text-5xl mb-3">🎯</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-800">Révision</h3>
-            <p class="text-gray-500 mt-2 text-sm">Quiz interactif</p>
-          </div>
-        </div>
-        <div class="mt-8 bg-white rounded-2xl p-6 shadow-lg">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">📌 Contenu du Mois 3</h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div class="p-4 bg-blue-50 rounded-xl"><div class="text-2xl font-bold text-blue-600">80</div><div class="text-sm text-gray-600">mots à apprendre</div></div>
-            <div class="p-4 bg-indigo-50 rounded-xl"><div class="text-2xl font-bold text-indigo-600">5</div><div class="text-sm text-gray-600">dialogues</div></div>
-            <div class="p-4 bg-purple-50 rounded-xl"><div class="text-2xl font-bold text-purple-600">20</div><div class="text-sm text-gray-600">verbes</div></div>
-            <div class="p-4 bg-pink-50 rounded-xl"><div class="text-2xl font-bold text-pink-600">J/M/S</div><div class="text-sm text-gray-600">Jours/Mois/Saisons</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Leçons -->
-      <div id="content-lecons" class="tab-content hidden">
-        <div class="grid md:grid-cols-2 gap-4 md:gap-6">
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-4">
-              <h3 class="text-xl font-bold text-white">🚌 Transport & Ville</h3>
-            </div>
-            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
-              <div class="space-y-3" id="theme-transport"></div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4">
-              <h3 class="text-xl font-bold text-white">🌳 Nature & Météo</h3>
-            </div>
-            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
-              <div class="space-y-3" id="theme-nature"></div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-pink-500 to-rose-500 p-4">
-              <h3 class="text-xl font-bold text-white">🎨 Couleurs & Formes</h3>
-            </div>
-            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
-              <div class="space-y-3" id="theme-couleurs"></div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4">
-              <h3 class="text-xl font-bold text-white">🕒 Temps & Dates</h3>
-            </div>
-            <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
-              <div class="space-y-3" id="theme-temps"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dialogues -->
-      <div id="content-dialogues" class="tab-content hidden">
-        <div class="space-y-4 md:space-y-6" id="dialogues-container"></div>
-      </div>
-
-      <!-- Verbes -->
-      <div id="content-verbes" class="tab-content hidden">
-        <div class="space-y-4" id="verbes-container"></div>
-      </div>
-
-      <!-- Temps -->
-      <div id="content-nombres" class="tab-content hidden">
-        <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">📅 Jours, Mois et Saisons</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4" id="temps-container"></div>
-        </div>
-      </div>
-
-      <!-- Révision -->
-      <div id="content-revision" class="tab-content hidden">
-        <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
-          <div id="quiz-container">
-            <div class="text-center mb-4 md:mb-6">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-800">🎯 Quiz de Révision</h3>
-              <p class="text-gray-500 text-sm md:text-base">Testez vos connaissances du Mois 3 !</p>
-            </div>
-            <div class="flex flex-wrap justify-center gap-3 mb-4 md:mb-6">
-              <button onclick="startQuiz('vocabulaire')" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all">📚 Vocabulaire</button>
-              <button onclick="startQuiz('verbes')" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold hover:bg-indigo-600 transition-all">🔤 Verbes</button>
-              <button onclick="startQuiz('temps')" class="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-full font-semibold hover:bg-purple-600 transition-all">🕒 Temps</button>
-            </div>
-            <div id="quiz-area" class="hidden">
-              <div class="text-center mb-4">
-                <span class="text-gray-500 text-sm">Question <span id="quiz-current">1</span> / <span id="quiz-total">10</span></span>
-              </div>
-              <div id="quiz-question" class="text-lg md:text-2xl text-center font-bold text-gray-800 mb-4 md:mb-6"></div>
-              <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-              <div id="quiz-result" class="text-center mt-4 text-lg md:text-xl font-bold hidden"></div>
-              <div class="text-center mt-4 md:mt-6">
-                <button onclick="nextQuestion()" id="next-btn" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all hidden">Suivant →</button>
-              </div>
-            </div>
-            <div id="quiz-end" class="hidden text-center">
-              <div class="text-4xl md:text-5xl mb-4">🎉</div>
-              <h3 class="text-xl md:text-2xl font-bold text-gray-800">Quiz terminé !</h3>
-              <p class="text-gray-500 mt-2">Score : <span id="quiz-score">0</span> / <span id="quiz-total-end">10</span></p>
-              <button onclick="resetQuiz()" class="mt-4 px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all">Rejouer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </main>
-
-    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
-      <p class="text-sm">📚 Apprentissage Darija - Mois 3 | Créé pour les enfants</p>
-    </footer>
   </div>
 
+  <!-- Tabs Navigation -->
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex flex-wrap gap-2 justify-center mb-4 sticky top-20 z-40 bg-blue-50/90 backdrop-blur-sm py-2 rounded-xl">
+      <button id="tab-accueil" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100" data-tab="accueil">🏠 Accueil</button>
+      <button id="tab-lecons" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100" data-tab="lecons">📖 Leçons</button>
+      <button id="tab-dialogues" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100" data-tab="dialogues">💬 Dialogues</button>
+      <button id="tab-verbes" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100" data-tab="verbes">🔤 Verbes</button>
+      <button id="tab-nombres" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100" data-tab="nombres">🕒 Temps</button>
+      <button id="tab-revision" class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base transition-all bg-white text-gray-700 hover:bg-blue-100" data-tab="revision">🎯 Révision</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 pb-8 flex-grow">
+    
+    <!-- Accueil -->
+    <div id="content-accueil" class="tab-content active">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div class="theme-card bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center transition-all hover:shadow-xl" data-tab="lecons">
+          <div class="text-4xl md:text-5xl mb-3">🚌</div>
+          <h3 class="text-lg md:text-xl font-bold text-gray-800">Leçons</h3>
+          <p class="text-gray-500 mt-2 text-sm">4 thèmes • 80 mots</p>
+        </div>
+        <div class="theme-card bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center transition-all hover:shadow-xl" data-tab="dialogues">
+          <div class="text-4xl md:text-5xl mb-3">💬</div>
+          <h3 class="text-lg md:text-xl font-bold text-gray-800">Dialogues</h3>
+          <p class="text-gray-500 mt-2 text-sm">5 dialogues</p>
+        </div>
+        <div class="theme-card bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center transition-all hover:shadow-xl" data-tab="verbes">
+          <div class="text-4xl md:text-5xl mb-3">🔤</div>
+          <h3 class="text-lg md:text-xl font-bold text-gray-800">Verbes</h3>
+          <p class="text-gray-500 mt-2 text-sm">20 verbes conjugués</p>
+        </div>
+        <div class="theme-card bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center transition-all hover:shadow-xl" data-tab="nombres">
+          <div class="text-4xl md:text-5xl mb-3">🕒</div>
+          <h3 class="text-lg md:text-xl font-bold text-gray-800">Temps & Dates</h3>
+          <p class="text-gray-500 mt-2 text-sm">Jours/Mois/Saisons</p>
+        </div>
+        <div class="theme-card bg-white rounded-2xl p-5 md:p-6 shadow-lg text-center transition-all hover:shadow-xl" data-tab="revision">
+          <div class="text-4xl md:text-5xl mb-3">🎯</div>
+          <h3 class="text-lg md:text-xl font-bold text-gray-800">Révision</h3>
+          <p class="text-gray-500 mt-2 text-sm">Quiz interactif</p>
+        </div>
+      </div>
+      <div class="mt-8 bg-white rounded-2xl p-6 shadow-lg">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">📌 Contenu du Mois 3</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="p-4 bg-blue-50 rounded-xl"><div class="text-2xl font-bold text-blue-600">80</div><div class="text-sm text-gray-600">mots à apprendre</div></div>
+          <div class="p-4 bg-indigo-50 rounded-xl"><div class="text-2xl font-bold text-indigo-600">5</div><div class="text-sm text-gray-600">dialogues</div></div>
+          <div class="p-4 bg-purple-50 rounded-xl"><div class="text-2xl font-bold text-purple-600">20</div><div class="text-sm text-gray-600">verbes</div></div>
+          <div class="p-4 bg-pink-50 rounded-xl"><div class="text-2xl font-bold text-pink-600">J/M/S</div><div class="text-sm text-gray-600">Jours/Mois/Saisons</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leçons -->
+    <div id="content-lecons" class="tab-content">
+      <div class="grid md:grid-cols-2 gap-4 md:gap-6">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-4">
+            <h3 class="text-xl font-bold text-white">🚌 Transport & Ville</h3>
+          </div>
+          <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+            <div class="space-y-3" id="theme-transport"></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4">
+            <h3 class="text-xl font-bold text-white">🌳 Nature & Météo</h3>
+          </div>
+          <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+            <div class="space-y-3" id="theme-nature"></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-pink-500 to-rose-500 p-4">
+            <h3 class="text-xl font-bold text-white">🎨 Couleurs & Formes</h3>
+          </div>
+          <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+            <div class="space-y-3" id="theme-couleurs"></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4">
+            <h3 class="text-xl font-bold text-white">🕒 Temps & Dates</h3>
+          </div>
+          <div class="p-4 max-h-80 md:max-h-96 overflow-y-auto">
+            <div class="space-y-3" id="theme-temps"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dialogues -->
+    <div id="content-dialogues" class="tab-content">
+      <div class="space-y-4 md:space-y-6" id="dialogues-container"></div>
+    </div>
+
+    <!-- Verbes -->
+    <div id="content-verbes" class="tab-content">
+      <div class="space-y-4" id="verbes-container"></div>
+    </div>
+
+    <!-- Temps -->
+    <div id="content-nombres" class="tab-content">
+      <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">📅 Jours, Mois et Saisons</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4" id="temps-container"></div>
+      </div>
+    </div>
+
+    <!-- Révision -->
+    <div id="content-revision" class="tab-content">
+      <div class="bg-white rounded-2xl shadow-lg p-4 md:p-6">
+        <div id="quiz-container">
+          <div class="text-center mb-4 md:mb-6">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800">🎯 Quiz de Révision</h3>
+            <p class="text-gray-500 text-sm md:text-base">Testez vos connaissances du Mois 3 !</p>
+          </div>
+          <div class="flex flex-wrap justify-center gap-3 mb-4 md:mb-6">
+            <button id="quiz-btn-vocab" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all">📚 Vocabulaire</button>
+            <button id="quiz-btn-verbes" class="px-4 py-2 md:px-6 md:py-3 bg-indigo-500 text-white rounded-full font-semibold hover:bg-indigo-600 transition-all">🔤 Verbes</button>
+            <button id="quiz-btn-temps" class="px-4 py-2 md:px-6 md:py-3 bg-purple-500 text-white rounded-full font-semibold hover:bg-purple-600 transition-all">🕒 Temps</button>
+          </div>
+          <div id="quiz-area" class="hidden">
+            <div class="text-center mb-4">
+              <span class="text-gray-500 text-sm">Question <span id="quiz-current">1</span> / <span id="quiz-total">10</span></span>
+            </div>
+            <div id="quiz-question" class="text-lg md:text-2xl text-center font-bold text-gray-800 mb-4 md:mb-6"></div>
+            <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+            <div id="quiz-result" class="text-center mt-4 text-lg md:text-xl font-bold hidden"></div>
+            <div class="text-center mt-4 md:mt-6">
+              <button id="next-btn" class="px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all hidden">Suivant →</button>
+            </div>
+          </div>
+          <div id="quiz-end" class="hidden text-center">
+            <div class="text-4xl md:text-5xl mb-4">🎉</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800">Quiz terminé !</h3>
+            <p class="text-gray-500 mt-2">Score : <span id="quiz-score">0</span> / <span id="quiz-total-end">10</span></p>
+            <button id="reset-quiz-btn" class="mt-4 px-4 py-2 md:px-6 md:py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all">Rejouer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+    <p class="text-sm">📚 Apprentissage Darija - Mois 3 | Créé pour les enfants</p>
+  </footer>
+
   <script>
+    // ============================================
     // DONNÉES - MOIS 3
-    const vocabulaire = {
+    // ============================================
+    var vocabulaire = {
       transport: [
         { fr: "voiture", arabe: "طُومُوبِيل", latin: "tomobil", phrase_latin: "Tomobili zraqa", phrase_fr: "La voiture est bleue" },
         { fr: "bus", arabe: "كَار", latin: "kar", phrase_latin: "Kar jay", phrase_fr: "Le bus arrive" },
@@ -286,7 +323,7 @@
       ]
     };
 
-    const dialogues = [
+    var dialogues = [
       { titre: "Dans le bus", personnages: ["Enfant", "Conducteur"], repliques: [
         { role: "Enfant", latin: "Salam, had l-kar kaymchi l-madrasa?", francais: "Bonjour, ce bus va à l'école?", arabe: "سَلَام، هَاد لْكَار كَيْمْشِي لْمَدْرَسَة؟" },
         { role: "Conducteur", latin: "Ih, tla3 3afak.", francais: "Oui, monte s'il te plaît.", arabe: "إيْه، تْلَاعْ عَافَاك" },
@@ -314,8 +351,7 @@
       ]}
     ];
 
-    // VERBES CORRIGÉS - 8 PERSONNES
-    const verbes = [
+    var verbes = [
       { verbe: "voyager", racine: "sfer",
         present: { ana: "kansfer", nta: "katsfer", nti: "katsferi", houwa: "kaysfer", hiya: "katsfer", 7na: "kansferu", ntouma: "katsferu", houma: "kaysferu" },
         passe: { ana: "sfert", nta: "sferti", nti: "sferti", houwa: "sfer", hiya: "sferet", 7na: "sferna", ntouma: "sfertu", houma: "sferu" },
@@ -418,7 +454,7 @@
       }
     ];
 
-    const tempsData = [
+    var tempsData = [
       { fr: "Lundi", latin: "Tnin", arabe: "لْتْنِين" }, { fr: "Mardi", latin: "Tlata", arabe: "تْلَاتَا" },
       { fr: "Mercredi", latin: "Rb3a", arabe: "لْرْبْعَا" }, { fr: "Jeudi", latin: "Khamis", arabe: "لْخَمِيس" },
       { fr: "Vendredi", latin: "Jum3a", arabe: "لْجُمْعَة" }, { fr: "Samedi", latin: "Sebt", arabe: "السَّبْت" },
@@ -432,202 +468,319 @@
       { fr: "Été", latin: "Sif", arabe: "صَّيْف" }, { fr: "Automne", latin: "Kharif", arabe: "خَرِيف" }, { fr: "Hiver", latin: "Shta", arabe: "شْتَا" }
     ];
 
-    const personLabels = [
+    var personLabels = [
       { key: "ana", label: "ana (je)" }, { key: "nta", label: "nta (tu masc.)" },
       { key: "nti", label: "nti (tu fém.)" }, { key: "houwa", label: "houwa (il)" },
       { key: "hiya", label: "hiya (elle)" }, { key: "7na", label: "7na (nous)" },
       { key: "ntouma", label: "ntouma (vous)" }, { key: "houma", label: "houma (ils/elles)" }
     ];
 
-    let quizQuestions = [], currentQuestion = 0, score = 0, quizType = '';
+    // ============================================
+    // ÉTAT GLOBAL
+    // ============================================
+    var quizQuestions = [];
+    var currentQuestion = 0;
+    var score = 0;
 
-    function showTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById('content-' + tabName).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('tab-active');
-        btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-blue-100');
-      });
-      const activeTab = document.getElementById('tab-' + tabName);
-      activeTab.classList.add('tab-active');
-      activeTab.classList.remove('bg-white', 'text-gray-700', 'hover:bg-blue-100');
-      if (window.innerWidth < 768) window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
+    // ============================================
+    // FONCTIONS UTILITAIRES
+    // ============================================
     function escapeHtml(text) {
       if (typeof text !== 'string') return text;
-      return text.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+      var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
+    function shuffleArray(array) {
+      var arr = array.slice();
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return arr;
+    }
+
+    // ============================================
+    // NAVIGATION TABS
+    // ============================================
+    function showTab(tabName) {
+      var contents = document.querySelectorAll('.tab-content');
+      for (var i = 0; i < contents.length; i++) {
+        contents[i].classList.remove('active');
+      }
+      
+      var selectedContent = document.getElementById('content-' + tabName);
+      if (selectedContent) {
+        selectedContent.classList.add('active');
+      }
+      
+      var buttons = document.querySelectorAll('.tab-btn');
+      for (var j = 0; j < buttons.length; j++) {
+        buttons[j].classList.remove('tab-active');
+        buttons[j].classList.add('bg-white', 'text-gray-700', 'hover:bg-blue-100');
+      }
+      
+      var activeBtn = document.getElementById('tab-' + tabName);
+      if (activeBtn) {
+        activeBtn.classList.add('tab-active');
+        activeBtn.classList.remove('bg-white', 'text-gray-700', 'hover:bg-blue-100');
+      }
+      
+      if (window.innerWidth < 768) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // ============================================
+    // RENDU VOCABULAIRE
+    // ============================================
     function renderVocab() {
-      const themes = [
-        { id: 'transport',  vocabulaire.transport }, { id: 'nature', data: vocabulaire.nature },
-        { id: 'couleurs',  vocabulaire.couleurs }, { id: 'temps', data: vocabulaire.temps }
+      var themes = [
+        { id: 'transport', data: vocabulaire.transport },
+        { id: 'nature', data: vocabulaire.nature },
+        { id: 'couleurs', data: vocabulaire.couleurs },
+        { id: 'temps', data: vocabulaire.temps }
       ];
-      themes.forEach(theme => {
-        const container = document.getElementById('theme-' + theme.id);
-        if (!container) return;
-        container.innerHTML = theme.data.map(word => `
-          <div class="word-card p-3 rounded-lg border border-gray-200 transition-all">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-semibold text-gray-800">${escapeHtml(word.fr)}</span>
-              <span class="text-blue-600 font-semibold">${escapeHtml(word.latin)}</span>
-            </div>
-            <div class="text-right"><span class="arabic-text text-xl text-gray-700">${escapeHtml(word.arabe)}</span></div>
-            <div class="mt-2 text-sm text-gray-500 border-t pt-2">
-              <p><span class="text-blue-600">${escapeHtml(word.phrase_latin)}</span></p>
-              <p>${escapeHtml(word.phrase_fr)}</p>
-            </div>
-          </div>
-        `).join('');
-      });
+      
+      for (var t = 0; t < themes.length; t++) {
+        var theme = themes[t];
+        var container = document.getElementById('theme-' + theme.id);
+        if (!container) continue;
+        
+        var html = '';
+        for (var i = 0; i < theme.data.length; i++) {
+          var word = theme.data[i];
+          html += '<div class="word-card p-3 rounded-lg border border-gray-200 transition-all">';
+          html += '<div class="flex justify-between items-center mb-2">';
+          html += '<span class="font-semibold text-gray-800">' + escapeHtml(word.fr) + '</span>';
+          html += '<span class="text-blue-600 font-semibold">' + escapeHtml(word.latin) + '</span>';
+          html += '</div>';
+          html += '<div class="text-right"><span class="arabic-text text-xl text-gray-700">' + escapeHtml(word.arabe) + '</span></div>';
+          html += '<div class="mt-2 text-sm text-gray-500 border-t pt-2">';
+          html += '<p><span class="text-blue-600">' + escapeHtml(word.phrase_latin) + '</span></p>';
+          html += '<p>' + escapeHtml(word.phrase_fr) + '</p>';
+          html += '</div></div>';
+        }
+        container.innerHTML = html;
+      }
     }
 
+    // ============================================
+    // RENDU DIALOGUES
+    // ============================================
     function renderDialogues() {
-      const container = document.getElementById('dialogues-container');
+      var container = document.getElementById('dialogues-container');
       if (!container) return;
-      container.innerHTML = dialogues.map(dialogue => `
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4">
-            <h3 class="text-xl font-bold text-white">💬 ${escapeHtml(dialogue.titre)}</h3>
-            <p class="text-blue-100 text-sm">Personnages: ${dialogue.personnages.map(escapeHtml).join(', ')}</p>
-          </div>
-          <div class="p-4 space-y-3">
-            ${dialogue.repliques.map(rep => `
-              <div class="p-3 rounded-lg ${rep.role.includes('Enfant') || rep.role.includes('Élève') ? 'bg-blue-50 ml-4' : 'bg-gray-50 mr-4'}">
-                <div class="font-semibold text-sm text-gray-600 mb-1">${escapeHtml(rep.role)}</div>
-                <div class="flex justify-between items-center mb-1 flex-wrap gap-2">
-                  <span class="text-blue-600 font-semibold">${escapeHtml(rep.latin)}</span>
-                  <span class="arabic-text text-lg">${escapeHtml(rep.arabe)}</span>
-                </div>
-                <div class="text-gray-500 text-sm">${escapeHtml(rep.francais)}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('');
+      
+      var html = '';
+      for (var i = 0; i < dialogues.length; i++) {
+        var dialogue = dialogues[i];
+        html += '<div class="bg-white rounded-2xl shadow-lg overflow-hidden">';
+        html += '<div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4">';
+        html += '<h3 class="text-xl font-bold text-white">💬 ' + escapeHtml(dialogue.titre) + '</h3>';
+        html += '<p class="text-blue-100 text-sm">Personnages: ' + escapeHtml(dialogue.personnages.join(', ')) + '</p>';
+        html += '</div><div class="p-4 space-y-3">';
+        
+        for (var j = 0; j < dialogue.repliques.length; j++) {
+          var rep = dialogue.repliques[j];
+          var alignClass = (rep.role.indexOf('Enfant') !== -1 || rep.role.indexOf('Élève') !== -1) ? 'bg-blue-50 ml-4' : 'bg-gray-50 mr-4';
+          html += '<div class="p-3 rounded-lg ' + alignClass + '">';
+          html += '<div class="font-semibold text-sm text-gray-600 mb-1">' + escapeHtml(rep.role) + '</div>';
+          html += '<div class="flex justify-between items-center mb-1 flex-wrap gap-2">';
+          html += '<span class="text-blue-600 font-semibold">' + escapeHtml(rep.latin) + '</span>';
+          html += '<span class="arabic-text text-lg">' + escapeHtml(rep.arabe) + '</span>';
+          html += '</div><div class="text-gray-500 text-sm">' + escapeHtml(rep.francais) + '</div></div>';
+        }
+        html += '</div></div>';
+      }
+      container.innerHTML = html;
     }
 
+    // ============================================
+    // RENDU VERBES
+    // ============================================
     function renderVerbs() {
-      const container = document.getElementById('verbes-container');
+      var container = document.getElementById('verbes-container');
       if (!container) return;
-      container.innerHTML = verbes.map(verb => `
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4">
-            <h3 class="text-xl font-bold text-white">🔤 ${escapeHtml(verb.verbe)}</h3>
-            <p class="text-blue-100">Racine: ${escapeHtml(verb.racine)}</p>
-          </div>
-          <div class="p-4 grid gap-4">
-            <div>
-              <h4 class="font-bold text-blue-600 mb-2">Présent</h4>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                ${personLabels.map(p => `<div class="p-2 bg-blue-50 rounded"><div class="text-xs text-gray-500">${escapeHtml(p.label)}</div><div class="font-semibold">${escapeHtml(verb.present[p.key])}</div></div>`).join('')}
-              </div>
-            </div>
-            <div>
-              <h4 class="font-bold text-amber-600 mb-2">Passé</h4>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                ${personLabels.map(p => `<div class="p-2 bg-amber-50 rounded"><div class="text-xs text-gray-500">${escapeHtml(p.label)}</div><div class="font-semibold">${escapeHtml(verb.passe[p.key])}</div></div>`).join('')}
-              </div>
-            </div>
-            <div>
-              <h4 class="font-bold text-purple-600 mb-2">Futur</h4>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                ${personLabels.map(p => `<div class="p-2 bg-purple-50 rounded"><div class="text-xs text-gray-500">${escapeHtml(p.label)}</div><div class="font-semibold">${escapeHtml(verb.futur[p.key])}</div></div>`).join('')}
-              </div>
-            </div>
-          </div>
-        </div>
-      `).join('');
+      
+      var html = '';
+      for (var i = 0; i < verbes.length; i++) {
+        var verb = verbes[i];
+        html += '<div class="bg-white rounded-2xl shadow-lg overflow-hidden">';
+        html += '<div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4">';
+        html += '<h3 class="text-xl font-bold text-white">🔤 ' + escapeHtml(verb.verbe) + '</h3>';
+        html += '<p class="text-blue-100">Racine: ' + escapeHtml(verb.racine) + '</p>';
+        html += '</div><div class="p-4 grid gap-4">';
+        
+        html += '<div><h4 class="font-bold text-blue-600 mb-2">Présent</h4>';
+        html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-2">';
+        for (var j = 0; j < personLabels.length; j++) {
+          var p = personLabels[j];
+          html += '<div class="p-2 bg-blue-50 rounded">';
+          html += '<div class="text-xs text-gray-500">' + escapeHtml(p.label) + '</div>';
+          html += '<div class="font-semibold">' + escapeHtml(verb.present[p.key]) + '</div></div>';
+        }
+        html += '</div></div>';
+        
+        html += '<div><h4 class="font-bold text-amber-600 mb-2">Passé</h4>';
+        html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-2">';
+        for (var k = 0; k < personLabels.length; k++) {
+          var p2 = personLabels[k];
+          html += '<div class="p-2 bg-amber-50 rounded">';
+          html += '<div class="text-xs text-gray-500">' + escapeHtml(p2.label) + '</div>';
+          html += '<div class="font-semibold">' + escapeHtml(verb.passe[p2.key]) + '</div></div>';
+        }
+        html += '</div></div>';
+        
+        html += '<div><h4 class="font-bold text-purple-600 mb-2">Futur</h4>';
+        html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-2">';
+        for (var l = 0; l < personLabels.length; l++) {
+          var p3 = personLabels[l];
+          html += '<div class="p-2 bg-purple-50 rounded">';
+          html += '<div class="text-xs text-gray-500">' + escapeHtml(p3.label) + '</div>';
+          html += '<div class="font-semibold">' + escapeHtml(verb.futur[p3.key]) + '</div></div>';
+        }
+        html += '</div></div></div></div>';
+      }
+      container.innerHTML = html;
     }
 
+    // ============================================
+    // RENDU TEMPS
+    // ============================================
     function renderTemps() {
-      const container = document.getElementById('temps-container');
+      var container = document.getElementById('temps-container');
       if (!container) return;
-      container.innerHTML = tempsData.map(n => `
-        <div class="p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg text-center hover:from-blue-50 hover:to-indigo-50 transition-all">
-          <div class="text-lg font-bold text-gray-800">${escapeHtml(n.fr)}</div>
-          <div class="text-blue-600 font-semibold">${escapeHtml(n.latin)}</div>
-          <div class="arabic-text text-md text-gray-700">${escapeHtml(n.arabe)}</div>
-        </div>
-      `).join('');
+      
+      var html = '';
+      for (var i = 0; i < tempsData.length; i++) {
+        var n = tempsData[i];
+        html += '<div class="p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg text-center hover:from-blue-50 hover:to-indigo-50 transition-all">';
+        html += '<div class="text-lg font-bold text-gray-800">' + escapeHtml(n.fr) + '</div>';
+        html += '<div class="text-blue-600 font-semibold">' + escapeHtml(n.latin) + '</div>';
+        html += '<div class="arabic-text text-md text-gray-700">' + escapeHtml(n.arabe) + '</div></div>';
+      }
+      container.innerHTML = html;
+    }
+
+    // ============================================
+    // QUIZ FUNCTIONS
+    // ============================================
+    function generateOptions(correct, allOptions) {
+      var unique = [];
+      var seen = {};
+      for (var i = 0; i < allOptions.length; i++) {
+        if (!seen[allOptions[i]]) {
+          seen[allOptions[i]] = true;
+          unique.push(allOptions[i]);
+        }
+      }
+      var wrong = [];
+      for (var j = 0; j < unique.length && wrong.length < 3; j++) {
+        if (unique[j] !== correct) {
+          wrong.push(unique[j]);
+        }
+      }
+      wrong = shuffleArray(wrong).slice(0, 3);
+      var options = shuffleArray([correct].concat(wrong));
+      return options;
     }
 
     function startQuiz(type) {
-      quizType = type; currentQuestion = 0; score = 0;
+      currentQuestion = 0;
+      score = 0;
+      
       if (type === 'vocabulaire') {
-        const allWords = [...vocabulaire.transport, ...vocabulaire.nature, ...vocabulaire.couleurs, ...vocabulaire.temps];
-        quizQuestions = shuffleArray(allWords).slice(0, 10).map(word => ({
-          question: `Comment dit-on "${word.fr}" en darija?`, answer: word.latin,
-          options: generateOptions(word.latin, allWords.map(w => w.latin))
-        }));
+        var allWords = vocabulaire.transport.concat(vocabulaire.nature, vocabulaire.couleurs, vocabulaire.temps);
+        var shuffled = shuffleArray(allWords).slice(0, 10);
+        quizQuestions = [];
+        for (var i = 0; i < shuffled.length; i++) {
+          var word = shuffled[i];
+          quizQuestions.push({
+            question: 'Comment dit-on "' + word.fr + '" en darija?',
+            answer: word.latin,
+            options: generateOptions(word.latin, allWords.map(function(w) { return w.latin; }))
+          });
+        }
       } else if (type === 'verbes') {
-        quizQuestions = shuffleArray([...verbes]).slice(0, 10).map(verb => ({
-          question: `Quelle est la racine du verbe "${verb.verbe}"?`, answer: verb.racine,
-          options: generateOptions(verb.racine, verbes.map(v => v.racine))
-        }));
+        var shuffledVerbs = shuffleArray(verbes).slice(0, 10);
+        quizQuestions = [];
+        for (var j = 0; j < shuffledVerbs.length; j++) {
+          var verb = shuffledVerbs[j];
+          quizQuestions.push({
+            question: 'Quelle est la racine du verbe "' + verb.verbe + '"?',
+            answer: verb.racine,
+            options: generateOptions(verb.racine, verbes.map(function(v) { return v.racine; }))
+          });
+        }
       } else if (type === 'temps') {
-        const selected = shuffleArray([...tempsData]).slice(0, 10);
-        quizQuestions = selected.map(n => ({
-          question: `Comment dit-on ${n.fr} en darija?`, answer: n.latin,
-          options: generateOptions(n.latin, tempsData.map(num => num.latin))
-        }));
+        var shuffledTemps = shuffleArray(tempsData).slice(0, 10);
+        quizQuestions = [];
+        for (var k = 0; k < shuffledTemps.length; k++) {
+          var t = shuffledTemps[k];
+          quizQuestions.push({
+            question: 'Comment dit-on ' + t.fr + ' en darija?',
+            answer: t.latin,
+            options: generateOptions(t.latin, tempsData.map(function(num) { return num.latin; }))
+          });
+        }
       }
+      
       document.getElementById('quiz-area').classList.remove('hidden');
       document.getElementById('quiz-end').classList.add('hidden');
       document.getElementById('quiz-total').textContent = quizQuestions.length;
       showQuestion();
     }
 
-    function generateOptions(correct, allOptions) {
-      const unique = [...new Set(allOptions)];
-      const wrong = shuffleArray(unique.filter(o => o !== correct)).slice(0, 3);
-      return shuffleArray([correct, ...wrong]);
-    }
-
-    function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
     function showQuestion() {
-      const q = quizQuestions[currentQuestion];
-      document.getElementById('quiz-current').textContent = currentQuestion + 1;
+      var q = quizQuestions[currentQuestion];
+      document.getElementById('quiz-current').textContent = (currentQuestion + 1);
       document.getElementById('quiz-question').textContent = q.question;
       document.getElementById('quiz-result').classList.add('hidden');
       document.getElementById('next-btn').classList.add('hidden');
-      const container = document.getElementById('quiz-options');
-      container.innerHTML = q.options.map(opt => `
-        <button data-answer="${opt.replace(/"/g, '&quot;')}" class="quiz-option p-4 bg-white border-2 border-gray-200 rounded-xl font-semibold hover:border-blue-400 hover:bg-blue-50 transition-all">
-          ${escapeHtml(opt)}
-        </button>
-      `).join('');
-      setTimeout(() => {
-        document.querySelectorAll('.quiz-option').forEach(btn => {
-          btn.addEventListener('click', function() { checkAnswer(this.dataset.answer); });
+      
+      var container = document.getElementById('quiz-options');
+      var html = '';
+      for (var i = 0; i < q.options.length; i++) {
+        var opt = q.options[i];
+        var escapedOpt = opt.replace(/"/g, '&quot;');
+        html += '<button data-answer="' + escapedOpt + '" class="quiz-option p-4 bg-white border-2 border-gray-200 rounded-xl font-semibold hover:border-blue-400 hover:bg-blue-50 transition-all">';
+        html += escapeHtml(opt) + '</button>';
+      }
+      container.innerHTML = html;
+      
+      var buttons = container.querySelectorAll('.quiz-option');
+      for (var j = 0; j < buttons.length; j++) {
+        buttons[j].addEventListener('click', function() {
+          checkAnswer(this.getAttribute('data-answer'));
         });
-      }, 0);
+      }
     }
 
     function checkAnswer(selected) {
-      const q = quizQuestions[currentQuestion];
-      const result = document.getElementById('quiz-result');
-      document.querySelectorAll('.quiz-option').forEach(opt => {
-        opt.disabled = true;
-        if (opt.dataset.answer === q.answer) opt.classList.add('bg-green-100', 'border-green-500');
-        else if (opt.dataset.answer === selected) opt.classList.add('bg-red-100', 'border-red-500');
-      });
+      var q = quizQuestions[currentQuestion];
+      var result = document.getElementById('quiz-result');
+      var buttons = document.querySelectorAll('.quiz-option');
+      
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+        var btnAnswer = buttons[i].getAttribute('data-answer');
+        if (btnAnswer === q.answer) {
+          buttons[i].classList.add('bg-green-100', 'border-green-500');
+        } else if (btnAnswer === selected) {
+          buttons[i].classList.add('bg-red-100', 'border-red-500');
+        }
+      }
+      
       if (selected === q.answer) {
         score++;
         result.textContent = '✅ Correct !';
         result.className = 'text-center mt-4 text-lg font-bold text-green-600';
         saveProgress(q.answer);
       } else {
-        result.textContent = `❌ Faux ! Réponse: ${q.answer}`;
+        result.textContent = '❌ Faux ! Réponse: ' + q.answer;
         result.className = 'text-center mt-4 text-lg font-bold text-red-600';
       }
       result.classList.remove('hidden');
@@ -636,8 +789,9 @@
 
     function nextQuestion() {
       currentQuestion++;
-      if (currentQuestion < quizQuestions.length) showQuestion();
-      else {
+      if (currentQuestion < quizQuestions.length) {
+        showQuestion();
+      } else {
         document.getElementById('quiz-area').classList.add('hidden');
         document.getElementById('quiz-end').classList.remove('hidden');
         document.getElementById('quiz-score').textContent = score;
@@ -651,29 +805,73 @@
       document.getElementById('quiz-end').classList.add('hidden');
     }
 
+    // ============================================
+    // PROGRESSION
+    // ============================================
     function saveProgress(answer) {
       try {
-        let mastered = JSON.parse(localStorage.getItem('darijaMois3Mastered') || '[]');
-        if (!mastered.includes(answer)) {
+        var mastered = JSON.parse(localStorage.getItem('darijaMois3Mastered') || '[]');
+        if (mastered.indexOf(answer) === -1) {
           mastered.push(answer);
           localStorage.setItem('darijaMois3Mastered', JSON.stringify(mastered));
           updateProgress();
         }
-      } catch (e) { console.warn(e); }
+      } catch (e) {
+        console.warn('localStorage error:', e);
+      }
     }
 
     function updateProgress() {
       try {
-        const mastered = JSON.parse(localStorage.getItem('darijaMois3Mastered') || '[]');
-        const total = vocabulaire.transport.length + vocabulaire.nature.length + vocabulaire.couleurs.length + vocabulaire.temps.length;
-        const progress = Math.min(100, Math.round((mastered.length / total) * 100));
+        var mastered = JSON.parse(localStorage.getItem('darijaMois3Mastered') || '[]');
+        var total = vocabulaire.transport.length + vocabulaire.nature.length + vocabulaire.couleurs.length + vocabulaire.temps.length;
+        var progress = Math.min(100, Math.round((mastered.length / total) * 100));
         document.getElementById('progress-bar').style.width = progress + '%';
         document.getElementById('progress-text').textContent = progress + '%';
-      } catch (e) { console.warn(e); }
+      } catch (e) {
+        console.warn('Progress error:', e);
+      }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      renderVocab(); renderDialogues(); renderVerbs(); renderTemps(); updateProgress();
+    // ============================================
+    // INITIALISATION - TOUS LES EVENT LISTENERS
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      renderVocab();
+      renderDialogues();
+      renderVerbs();
+      renderTemps();
+      updateProgress();
+      
+      var tabButtons = document.querySelectorAll('.tab-btn');
+      for (var i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].addEventListener('click', function() {
+          var tabName = this.getAttribute('data-tab');
+          if (tabName) showTab(tabName);
+        });
+      }
+      
+      var themeCards = document.querySelectorAll('.theme-card');
+      for (var j = 0; j < themeCards.length; j++) {
+        themeCards[j].addEventListener('click', function() {
+          var tabName = this.getAttribute('data-tab');
+          if (tabName) showTab(tabName);
+        });
+      }
+      
+      var quizBtnVocab = document.getElementById('quiz-btn-vocab');
+      var quizBtnVerbes = document.getElementById('quiz-btn-verbes');
+      var quizBtnTemps = document.getElementById('quiz-btn-temps');
+      var nextBtn = document.getElementById('next-btn');
+      var resetQuizBtn = document.getElementById('reset-quiz-btn');
+      
+      if (quizBtnVocab) quizBtnVocab.addEventListener('click', function() { startQuiz('vocabulaire'); });
+      if (quizBtnVerbes) quizBtnVerbes.addEventListener('click', function() { startQuiz('verbes'); });
+      if (quizBtnTemps) quizBtnTemps.addEventListener('click', function() { startQuiz('temps'); });
+      if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
+      if (resetQuizBtn) resetQuizBtn.addEventListener('click', resetQuiz);
+      
+      console.log('✅ Mois 3 - Application initialisée avec succès');
     });
   </script>
 </body>
